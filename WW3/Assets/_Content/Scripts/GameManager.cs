@@ -3,34 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using PlayerInfo = Data.PlayerInfo;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager INSTANCE;
-    
+
     public TMP_Text firepowerText;
     public TMP_Text angleText;
 
-    private float firepower;
-    private float angle;
-    
+    public Data.PlayerInfo playerInfo;
+
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+        
         if (INSTANCE == null)
             INSTANCE = this;
         else
-            Destroy(this);
+            Destroy(this.gameObject);
+    }
+
+    private void Start()
+    {
+        playerInfo = new Data.PlayerInfo();
     }
 
     public void UpdateFirepower(float value)
     {
-        firepower += value;
-        firepowerText.text = "Firepower: " + firepower.ToString("F2");
+        playerInfo.firepower += value;
+        //firepowerText.text = "Firepower: " + playerInfo.firepower.ToString("F2");
     }
     
     public void UpdateAngle(float value)
     {
-        angle = value;
-        angleText.text = "Angle: " + angle.ToString("F2");
+        playerInfo.angle = value;
+        //angleText.text = "Angle: " + playerInfo.angle.ToString("F2");
     }
 }

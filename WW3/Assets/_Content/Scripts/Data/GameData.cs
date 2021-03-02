@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Database
+namespace Data
 {
     [Serializable]
     public class GameData
     {
         public string gameID;
-        public string GameName;
+        public string creationDate;
+        public string gameName;
         public int worldSeed;
-        public List<PlayerInfo> players;
+        public List<PlayerInfo> players = new List<PlayerInfo>();
         public int currentPlayerTurn;
     }
 
@@ -40,6 +41,7 @@ namespace Database
     [Serializable]
     public class UserInfo
     {
+        public string userID;
         public string nickname;
         public List<string> activeGames;
     }

@@ -10,7 +10,7 @@ using UnityEngine;
 [Serializable]
 public class JsonWrapper
 {
-    public List<PlayerInfo> playerInfo = new List<PlayerInfo>();
+    public List<OLD.PlayerInfo> playerInfo = new List<OLD.PlayerInfo>();
 }
 
 public class SaveManager : MonoBehaviour
@@ -51,7 +51,7 @@ public class SaveManager : MonoBehaviour
         
         foreach(GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            PlayerInfo playerToAdd = new PlayerInfo();
+            OLD.PlayerInfo playerToAdd = new OLD.PlayerInfo();
             
             playerToAdd.ObjectName = player.name;
             playerToAdd.Position = player.transform.position;

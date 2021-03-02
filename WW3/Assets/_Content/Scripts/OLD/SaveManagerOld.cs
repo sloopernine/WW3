@@ -11,7 +11,7 @@ using System.Net;
 [Serializable]
 public class Players
 {
-    public PlayerInfo[] players;
+    public OLD.PlayerInfo[] players;
 }
 
 public class SaveManagerOld : MonoBehaviour
@@ -36,12 +36,12 @@ public class SaveManagerOld : MonoBehaviour
 
         //Create holder object
         var playerCollection = new Players();
-        playerCollection.players = new PlayerInfo[players.Length];
+        playerCollection.players = new OLD.PlayerInfo[players.Length];
 
         //put info in playerinfo class
 		for (int i = 0; i < players.Length; i++)
 		{
-            playerCollection.players[i] = new PlayerInfo();
+            playerCollection.players[i] = new OLD.PlayerInfo();
             playerCollection.players[i].Position = players[i].transform.position;
             playerCollection.players[i].ObjectName = players[i].name;
             playerCollection.players[i].direction = Tools.WrapAngle(players[i].transform.eulerAngles.z); //players[i].transform.eulerAngles.z;

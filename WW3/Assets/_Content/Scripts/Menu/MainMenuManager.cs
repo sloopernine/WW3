@@ -1,5 +1,5 @@
 ﻿using System;
-using Database;
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,7 +50,7 @@ namespace Menu
             login,
             register,
             message,
-            createJoin
+            lobby
         }
         private MenuState currentMenuState;
         public MenuState CurrentPanelState => currentMenuState;
@@ -99,7 +99,7 @@ namespace Menu
                 PlayerPrefs.SetInt("remember", 0);
             }
             
-            FirebaseManager.INSTANCE.LoginPlayer(loginEmailInput.text, loginPasswordInput.text);
+            FirebaseManager.INSTANCE.LoginUser(loginEmailInput.text, loginPasswordInput.text);
         }
 
         public void RegisterPanelButton()
@@ -109,7 +109,7 @@ namespace Menu
 
         public void RegisterButton()
         {
-            FirebaseManager.INSTANCE.RegisterPlayer(registerEmailInput.text, registerPasswordInput.text);
+            FirebaseManager.INSTANCE.RegisterUser(registerEmailInput.text, registerPasswordInput.text, registerNicknameInput.text);
         }
 
         public void GoToLoginPanel()
@@ -172,7 +172,7 @@ namespace Menu
                 createJoinPanel.SetActive(false);
             }
             
-            if (newState == MenuState.createJoin)
+            if (newState == MenuState.lobby)
             {
                 loginPanel.SetActive(false);
                 registerPanel.SetActive(false);
