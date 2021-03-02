@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text firepowerText;
     public TMP_Text angleText;
 
+    public int maxActiveGames = 5;
+    public int maxPlayers = 2;
+    
     public Data.PlayerInfo playerInfo;
 
     private void Awake()

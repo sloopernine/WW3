@@ -40,8 +40,15 @@ namespace Menu
 
         #region Create Join Panel
 
-        [Header("Create Join Panel")]
-        public GameObject createJoinPanel;
+        [Header("Lobby")]
+        public GameObject lobbyPanel;
+
+        #endregion
+
+        #region Join Window
+
+        [Header("Join Panel")]
+        public GameObject joinPanel;
 
         #endregion
         
@@ -50,7 +57,8 @@ namespace Menu
             login,
             register,
             message,
-            lobby
+            lobby,
+            join
         }
         private MenuState currentMenuState;
         public MenuState CurrentPanelState => currentMenuState;
@@ -146,7 +154,8 @@ namespace Menu
                 loginPanel.SetActive(true);
                 registerPanel.SetActive(false);
                 messagePanel.SetActive(false);
-                createJoinPanel.SetActive(false);
+                lobbyPanel.SetActive(false);
+                joinPanel.SetActive(false);
 
                 if (lastMenuState == MenuState.register)
                 {
@@ -161,7 +170,8 @@ namespace Menu
                 loginPanel.SetActive(false);
                 registerPanel.SetActive(true);
                 messagePanel.SetActive(false);
-                createJoinPanel.SetActive(false);
+                lobbyPanel.SetActive(false);
+                joinPanel.SetActive(false);
             }
 
             if (newState == MenuState.message)
@@ -169,7 +179,8 @@ namespace Menu
                 loginPanel.SetActive(false);
                 registerPanel.SetActive(false);
                 messagePanel.SetActive(true);
-                createJoinPanel.SetActive(false);
+                lobbyPanel.SetActive(false);
+                joinPanel.SetActive(false);
             }
             
             if (newState == MenuState.lobby)
@@ -177,7 +188,17 @@ namespace Menu
                 loginPanel.SetActive(false);
                 registerPanel.SetActive(false);
                 messagePanel.SetActive(false);
-                createJoinPanel.SetActive(true);
+                lobbyPanel.SetActive(true);
+                joinPanel.SetActive(false);
+            }
+
+            if (newState == MenuState.join)
+            {
+                loginPanel.SetActive(false);
+                registerPanel.SetActive(false);
+                messagePanel.SetActive(false);
+                lobbyPanel.SetActive(false);
+                joinPanel.SetActive(true);
             }
 
             lastMenuState = currentMenuState;

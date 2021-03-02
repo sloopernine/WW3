@@ -42,6 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Terrain
+    uniqueID: 1378067303
+    locked: 0
   - name: CannonBall
     uniqueID: 2063655907
     locked: 0

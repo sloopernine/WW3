@@ -21,9 +21,14 @@ namespace Menu
             StartCoroutine(InitialGameListUpdate());
         }
 
+        public void JoinButton()
+        {
+            MainMenuManager.INSTANCE.ChangeState(MainMenuManager.MenuState.@join);
+        }
+        
         public void CreateGame()
         {
-            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= 5)
+            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= GameManager.INSTANCE.maxActiveGames)
             {
                 MainMenuManager.INSTANCE.DisplayMessage("You already have to many games active", MainMenuManager.MenuState.lobby);
                 return;
