@@ -40,7 +40,6 @@ namespace Menu
 
             StartCoroutine(CheckForGame(inviteCode));
             
-            //TODO If everything checks out, add the game to player active games
         }
 
         IEnumerator CheckForGame(string inviteCode)
@@ -79,10 +78,10 @@ namespace Menu
                 }
                 else
                 {
+                    //If everything checks out, add the game to players active games
                     string path = "games/" + gameData.gameID;
                     
-                    Data.PlayerInfo newPlayer = new Data.PlayerInfo();
-                    newPlayer = NewPlayer(ActiveUser.INSTANCE._userInfo.nickname, ActiveUser.INSTANCE._userInfo.userID);
+                    Data.PlayerInfo newPlayer = new Data.PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
                     
                     gameData.players.Add(newPlayer);
 
@@ -90,7 +89,7 @@ namespace Menu
                     
                     Data.FirebaseManager.INSTANCE.SaveData(path, newData);
                     
-                    ActiveUser.INSTANCE._userInfo.activeGames.Add(gameData.gameName);
+                    ActiveUser.INSTANCE._userInfo.activeGames.Add(gameData.gameID);
                     ActiveUser.INSTANCE.SaveUserInfo();
                     
                     MainMenuManager.INSTANCE.DisplayMessage("Game " + inviteCode + " added", MainMenuManager.MenuState.lobby);
@@ -98,21 +97,6 @@ namespace Menu
             }
         }
         
-        private Data.PlayerInfo NewPlayer(string nickname, string playerID)
-        {
-            Data.PlayerInfo playerInfo = new Data.PlayerInfo();
-
-            playerInfo.playerID = playerID;
-            playerInfo.nickname = nickname;
-            playerInfo.position = Vector2.zero;
-            playerInfo.isAlive = true;
-            playerInfo.money = 500;
-            playerInfo.angle = 0;
-            playerInfo.firepower = 0;
-
-            return playerInfo;
-        }
-
         public void PasteInviteCode()
         {
             inviteCodeInput.text = UniClipboard.GetText();

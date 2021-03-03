@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Data;
+using Firebase.Auth;
 using Firebase.Database;
-using FirebaseProject;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using PlayerInfo = Data.PlayerInfo;
 
 namespace Menu
 {
@@ -15,7 +11,7 @@ namespace Menu
     {
         public GameObject gameSlot;
         public Transform contentParent;
-
+        
         private void OnEnable()
         {
             StartCoroutine(InitialGameListUpdate());
@@ -39,8 +35,8 @@ namespace Menu
             
             string key = FirebaseDatabase.DefaultInstance.RootReference.Child("games/").Push().Key;
 
-            Data.PlayerInfo newPlayer = new Data.PlayerInfo();
-            newPlayer = NewPlayer(ActiveUser.INSTANCE._userInfo.nickname, ActiveUser.INSTANCE._userInfo.userID);
+            Data.PlayerInfo newPlayer = new Data.PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
+         
             
             GameData gameData = new GameData();
             gameData.gameID = key;
@@ -53,27 +49,12 @@ namespace Menu
             
             Data.FirebaseManager.INSTANCE.SaveData(path, data);
             
-            ActiveUser.INSTANCE._userInfo.activeGames.Add(gameData.gameName);
+            ActiveUser.INSTANCE._userInfo.activeGames.Add(gameData.gameID);
             ActiveUser.INSTANCE.SaveUserInfo();
 
             UpdateGameList();
         }
-
-        private Data.PlayerInfo NewPlayer(string nickname, string playerID)
-        {
-            Data.PlayerInfo playerInfo = new Data.PlayerInfo();
-
-            playerInfo.playerID = playerID;
-            playerInfo.nickname = nickname;
-            playerInfo.position = Vector2.zero;
-            playerInfo.isAlive = true;
-            playerInfo.money = 500;
-            playerInfo.angle = 0;
-            playerInfo.firepower = 0;
-
-            return playerInfo;
-        }
-
+        
         private void UpdateGameList()
         {
             foreach (Transform child in contentParent)
@@ -81,11 +62,20 @@ namespace Menu
                 Destroy(child.gameObject);
             }
             
-            foreach (var gameName in ActiveUser.INSTANCE._userInfo.activeGames)
+            foreach (var gameID in ActiveUser.INSTANCE._userInfo.activeGames)
             {
-                GameObject newGame = Instantiate(gameSlot, contentParent);
-                newGame.GetComponent<GameSlot>().gameName.text = gameName;
+                StartCoroutine(FirebaseManager.INSTANCE.LoadData("games/" + gameID, AddGameToList));
             }
+        }
+
+        private void AddGameToList(string jsonData)
+        {
+            GameData gameData = JsonUtility.FromJson<GameData>(jsonData);
+            
+            GameObject newGame = Instantiate(gameSlot, contentParent);
+            GameSlot newGameSlot = newGame.GetComponent<GameSlot>();
+            newGameSlot.gameName.text = gameData.gameName;
+            newGameSlot.GameID = gameData.gameID;
         }
 
         IEnumerator InitialGameListUpdate()

@@ -12,7 +12,7 @@ namespace Data
         public string gameName;
         public int worldSeed;
         public List<PlayerInfo> players = new List<PlayerInfo>();
-        public int currentPlayerTurn;
+        public int currentTurn;
     }
 
     [Serializable]
@@ -22,22 +22,25 @@ namespace Data
         public string nickname;
         public Vector2 position;
         public bool isAlive;
-        public int money;
         public float angle;
         public float firepower;
-        public string selectedWeapon;
-        public List<UnlockedWeapons> unlockedWeapons;
-        public float secondDetonationTime;
-        public Vector2 secondDetonationPosition;
+        
+        public PlayerInfo()
+        {
+            
+        }
+        
+        public PlayerInfo(string playerID, string nickname)
+        {
+            this.playerID = playerID;
+            this.nickname = nickname;
+            position = Vector2.zero;
+            isAlive = true;
+            angle = 0;
+            firepower = 0;
+        }
     }
-
-    [Serializable]
-    public class UnlockedWeapons
-    {
-        public bool cannon;
-        public bool carpetBomb;
-    }
-
+    
     [Serializable]
     public class UserInfo
     {

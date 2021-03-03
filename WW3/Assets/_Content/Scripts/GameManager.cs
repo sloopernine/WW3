@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
 using TMPro;
 using UnityEngine;
 using PlayerInfo = Data.PlayerInfo;
@@ -8,39 +9,46 @@ using PlayerInfo = Data.PlayerInfo;
 public class GameManager : MonoBehaviour
 {
     public static GameManager INSTANCE;
-
-    public TMP_Text firepowerText;
-    public TMP_Text angleText;
-
+    
     public int maxActiveGames = 5;
     public int maxPlayers = 2;
     
-    public Data.PlayerInfo playerInfo;
+    private GameData _gameData;
+
+    private string activeGameID;
+
+    public string ActiveGameID
+    {
+        get => activeGameID;
+        set
+        {
+            //TODO Somehow load GameScene here or make SceneManager and call from here
+            activeGameID = value;
+        }
+    }
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
         
         if (INSTANCE == null)
             INSTANCE = this;
         else
-            Destroy(this.gameObject);
+            Destroy(gameObject);
     }
 
     private void Start()
     {
-        playerInfo = new Data.PlayerInfo();
+        //playerInfo = new Data.PlayerInfo();
     }
 
     public void UpdateFirepower(float value)
     {
-        playerInfo.firepower += value;
-        //firepowerText.text = "Firepower: " + playerInfo.firepower.ToString("F2");
+        //playerInfo.firepower += value;
     }
     
     public void UpdateAngle(float value)
     {
-        playerInfo.angle = value;
-        //angleText.text = "Angle: " + playerInfo.angle.ToString("F2");
+        //playerInfo.angle = value;
     }
 }

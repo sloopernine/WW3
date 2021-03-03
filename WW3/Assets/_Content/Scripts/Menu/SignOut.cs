@@ -7,7 +7,7 @@ namespace Menu
     {
         public void SignOutButton()
         {
-            FirebaseManager.INSTANCE.SignOut();
+            FirebaseManager.INSTANCE.Logout();
         }
     }
 }
