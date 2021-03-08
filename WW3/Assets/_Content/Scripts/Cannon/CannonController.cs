@@ -10,6 +10,8 @@ public class CannonController : MonoBehaviour
 
     public float firePower = 0;
 
+    public int playerIndex;
+    
     public AudioClip rotateSound;
     private AudioSource _audioSource;
 
@@ -37,9 +39,13 @@ public class CannonController : MonoBehaviour
     public void SetFirepower(float value)
     {
         firePower += value;
-        GameManager.INSTANCE.UpdateFirepower(value);
     }
 
+    public void SetAngle(float value)
+    {
+        cannon.transform.eulerAngles = new Vector3(0, 0, value);
+    }
+    
     public void StartRotateCannon()
     {
         _audioSource.clip = rotateSound;
@@ -58,5 +64,10 @@ public class CannonController : MonoBehaviour
         GameObject cannonBall = Instantiate(this.cannonBall, anchorPoint.transform.position, Quaternion.identity);
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
         rb.AddForce(direction * firePower, ForceMode2D.Impulse);
+    }
+
+    public void EndTurn()
+    {
+        GameManager.INSTANCE.EndTurn(firePower, cannon.transform.localEulerAngles.z);
     }
 }

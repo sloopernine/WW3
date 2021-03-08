@@ -24,6 +24,7 @@ public class FireCannon : MonoBehaviour
     private void OnMouseDown()
     {
         cannonController.FireCannon();
+        cannonController.EndTurn();
     }
 
     private void OnMouseUp()

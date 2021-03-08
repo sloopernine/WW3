@@ -42,8 +42,11 @@ namespace Menu
             gameData.gameID = key;
             gameData.creationDate = date;
             gameData.gameName = gameName;
+            gameData.creator = ActiveUser.INSTANCE._userInfo.userID;
             gameData.players.Add(newPlayer);
-
+            gameData.currentTurn = 1; // 1 instead of 0 to better fit List.Count
+            gameData.firstTurn = true;
+            
             string path = "games/" + key;
             string data = JsonUtility.ToJson(gameData);
             

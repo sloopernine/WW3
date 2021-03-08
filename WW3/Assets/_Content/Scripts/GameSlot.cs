@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Data;
 using Firebase.Database;
+using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameSlot : MonoBehaviour
@@ -44,6 +46,17 @@ public class GameSlot : MonoBehaviour
         startButton.interactable = false;
     }
 
+    public void StartGame()
+    {
+        StartCoroutine(FirebaseManager.INSTANCE.LoadData("games/" + gameID, LoadScene));
+    }
+
+    public void LoadScene(string jsonData)
+    {
+        DataManager.INSTANCE.GameData = JsonUtility.FromJson<GameData>(jsonData);
+        SceneManager.LoadScene("_Content/Scenes/GameScene");
+    }
+    
     public void CopyGameName()
     {
         UniClipboard.SetText(gameName.text);

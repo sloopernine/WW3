@@ -18,10 +18,8 @@ namespace Managers
         }
 
         [SerializeField]private GameState currentGameState;
-        [SerializeField]private GameState previousGameState;
 
         public GameState CurrentGameState => currentGameState;
-        public GameState PreviousGameState => previousGameState;
 
         private void Awake()
         {
@@ -34,12 +32,7 @@ namespace Managers
         public Action<GameStateManager.GameState> onChangeGameState;
         public void ChangeGameState(GameState newGameState)
         {
-            if (newGameState == currentGameState)
-                return;
-            
-            previousGameState = currentGameState;
             currentGameState = newGameState;
-        
             onChangeGameState?.Invoke(newGameState);
         }
     }

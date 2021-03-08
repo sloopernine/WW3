@@ -10,9 +10,11 @@ namespace Data
         public string gameID;
         public string creationDate;
         public string gameName;
+        public string creator;
         public int worldSeed;
         public List<PlayerInfo> players = new List<PlayerInfo>();
         public int currentTurn;
+        public bool firstTurn;
     }
 
     [Serializable]
@@ -23,6 +25,7 @@ namespace Data
         public Vector2 position;
         public bool isAlive;
         public float angle;
+        public float lastAngle;
         public float firepower;
         
         public PlayerInfo()
