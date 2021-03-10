@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStateManager.GameState.PlayersTurn)
         {
             opponentsTurnText.SetActive(false);
+            _players[_dataManager.GameData.currentTurn].GetComponent<CannonController>().buttons.SetActive(true);
         }
         else if(gameState == GameStateManager.GameState.OpponentTurn)
         {
@@ -151,6 +152,11 @@ public class GameManager : MonoBehaviour
         _dataManager.GameData.players[_dataManager.GameData.currentTurn].firepower = firepower;
         _dataManager.GameData.players[_dataManager.GameData.currentTurn].angle = angle;
         _dataManager.GameData.currentTurn = GetNextTurn(_dataManager.GameData.currentTurn);
+
+        if (_dataManager.GameData.firstTurn)
+        {
+            _dataManager.GameData.firstTurn = false;
+        }
 
         string jsonData = JsonUtility.ToJson(_dataManager.GameData);
         

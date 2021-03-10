@@ -78,24 +78,22 @@ public class CannonController : MonoBehaviour
     public void EndTurn()
     {
         GameManager.INSTANCE.EndTurn(firePower, cannon.transform.localEulerAngles.z);
+        buttons.SetActive(false);
     }
 
     private void OnGameStateChanged(GameStateManager.GameState gamestate)
     {
-        if (gamestate == GameStateManager.GameState.PlayersTurn)
-        {
-            if (DataManager.INSTANCE.GameData.currentTurn == playerIndex)
-            {
-                buttons.SetActive(true);
-            }
-            else
-            {
-                buttons.SetActive(false);
-            }
-        }
-        else
-        {
-            buttons.SetActive(false);
-        }
+    //     if (DataManager.INSTANCE.GameData.players[DataManager.INSTANCE.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
+    //     {
+    //         if (DataManager.INSTANCE.GameData.currentTurn == playerIndex)
+    //         {
+    //             buttons.SetActive(true);
+    //         }
+    //         
+    //     }
+    //     else
+    //     {
+    //         buttons.SetActive(false);
+    //     }
     }
 }

@@ -24,7 +24,7 @@ namespace Menu
         
         public void CreateGame()
         {
-            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= GameManager.INSTANCE.maxActiveGames)
+            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= 5)
             {
                 MainMenuManager.INSTANCE.DisplayMessage("You already have to many games active", MainMenuManager.MenuState.lobby);
                 return;

@@ -22,7 +22,7 @@ namespace Menu
             }
             
             //Check if already joined to many games
-            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= GameManager.INSTANCE.maxActiveGames)
+            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= 5)
             {
                 inviteCodeInput.text = "";
                 MainMenuManager.INSTANCE.DisplayMessage("You already have to many games active", MainMenuManager.MenuState.lobby);
@@ -71,7 +71,7 @@ namespace Menu
                 gameData = JsonUtility.FromJson<GameData>(data);
                 
                 //Check if the selected game have open player slots
-                if (gameData.players.Count >= GameManager.INSTANCE.maxPlayers)
+                if (gameData.players.Count >= 2)
                 {
                     MainMenuManager.INSTANCE.DisplayMessage("No free player slots in game", MainMenuManager.MenuState.lobby);
                     yield break;
