@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        GameStateManager.instance.onChangeGameState += OnGameStateChanged;
+        GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
         FirebaseDatabase.DefaultInstance.GetReference("games/" + _dataManager.GameData.gameID).Child("currentTurn").ValueChanged += TurnUpdated;
 
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameStateManager.instance.onChangeGameState -= OnGameStateChanged;
+        GameStateManager.INSTANCE.onChangeGameState -= OnGameStateChanged;
         FirebaseDatabase.DefaultInstance.GetReference("games/" + _dataManager.GameData.gameID).Child("currentTurn").ValueChanged -= TurnUpdated;
     }
     
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         {
             if (_dataManager.GameData.firstTurn)
             {
-                GameStateManager.instance.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
             }
             else
             {
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GameStateManager.instance.ChangeGameState(GameStateManager.GameState.OpponentTurn);
+            GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.OpponentTurn);
         }
     }
 
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         player.firePower = _dataManager.GameData.players[index].firepower;
         player.SetAngle(_dataManager.GameData.players[index].angle);
         
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         player.FireCannon();
 
         yield return new WaitForSeconds(5);
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
     void ReplayFinished()
     {
-        GameStateManager.instance.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+        GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
     }
 
     void OnGameStateChanged(GameStateManager.GameState gameState)

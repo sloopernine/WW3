@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data;
+using Managers;
 using UnityEngine;
 
 public class CannonController : MonoBehaviour
@@ -15,6 +18,8 @@ public class CannonController : MonoBehaviour
     public AudioClip rotateSound;
     private AudioSource _audioSource;
 
+    public GameObject buttons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,10 +29,14 @@ public class CannonController : MonoBehaviour
         GameManager.INSTANCE.UpdateFirepower(firePower);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        GameStateManager.INSTANCE.onChangeGameState -= OnGameStateChanged;
     }
 
     public void RotateCannon(float value)
@@ -69,5 +78,24 @@ public class CannonController : MonoBehaviour
     public void EndTurn()
     {
         GameManager.INSTANCE.EndTurn(firePower, cannon.transform.localEulerAngles.z);
+    }
+
+    private void OnGameStateChanged(GameStateManager.GameState gamestate)
+    {
+        if (gamestate == GameStateManager.GameState.PlayersTurn)
+        {
+            if (DataManager.INSTANCE.GameData.currentTurn == playerIndex)
+            {
+                buttons.SetActive(true);
+            }
+            else
+            {
+                buttons.SetActive(false);
+            }
+        }
+        else
+        {
+            buttons.SetActive(false);
+        }
     }
 }

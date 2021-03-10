@@ -7,7 +7,7 @@ namespace Managers
 {
     public class GameStateManager : MonoBehaviour
     {
-        public static GameStateManager instance;
+        public static GameStateManager INSTANCE;
 
         public enum GameState
         {
@@ -23,8 +23,8 @@ namespace Managers
 
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (INSTANCE == null)
+                INSTANCE = this;
             else
                 Destroy(gameObject);
         }
