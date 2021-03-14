@@ -107,13 +107,39 @@ public class GameManager : MonoBehaviour
 
     void ReplayFinished()
     {
-        if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
+        int playersAlive = 0;
+
+        foreach (var player in _dataManager.GameData.players)
         {
-            GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+            if (player.isAlive)
+                playersAlive += 1;
+        }
+
+        if (playersAlive >= 2)
+        {
+            if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
+            {
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+            }
+            else
+            {
+                Debug.Log("You are dead, war goes on without you");
+                ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
+            }
         }
         else
         {
-            
+            if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
+            {
+                Debug.Log("You won, gz!");
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.Victory);
+            }
+            else
+            {
+                Debug.Log("You are dead, war goes on without you");
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
+            }
         }
     }
     
@@ -142,6 +168,7 @@ public class GameManager : MonoBehaviour
     
     private int GetLastTurn(int currentTurn)
     {
+        // TODO Need more work if more than two players
         if (currentTurn == 0)
         {
             return 1;
@@ -154,6 +181,7 @@ public class GameManager : MonoBehaviour
     
     private int GetNextTurn(int currentTurn)
     {
+        // TODO Need more work if more than two players
         if (currentTurn == 0)
         {
             return 1;

@@ -10,7 +10,13 @@ public class CannonController : MonoBehaviour
     public GameObject cannon;
     public GameObject anchorPoint;
     public GameObject cannonBall;
+    
+    public ParticleSystem dustCloud;
+    public ParticleSystem fireCloud;
 
+    private SpriteRenderer cannonBaseSprite;
+    private SpriteRenderer cannonSprite;
+    
     public float firePower = 0;
 
     public int playerIndex;
@@ -24,6 +30,9 @@ public class CannonController : MonoBehaviour
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+
+        cannonBaseSprite = GetComponent<SpriteRenderer>();
+        cannonSprite = cannon.GetComponent<SpriteRenderer>();
         
         GameManager.INSTANCE.UpdateAngle(cannon.transform.localEulerAngles.z);
         GameManager.INSTANCE.UpdateFirepower(firePower);
@@ -93,6 +102,11 @@ public class CannonController : MonoBehaviour
     {
         Debug.Log("Player " + playerIndex + " died");
         DataManager.INSTANCE.GameData.players[playerIndex].isAlive = false;
+        dustCloud.Play();
+        fireCloud.Play();
+
+        cannonSprite.enabled = false;
+        cannonBaseSprite.enabled = false;
     }
 
     private void OnGameStateChanged(GameStateManager.GameState gamestate)

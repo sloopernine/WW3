@@ -34,7 +34,7 @@ namespace Data
             
             StartCoroutine(SaveUserDataToFirebase(data));
         }
-        
+
         private IEnumerator SaveUserDataToFirebase(string data)
         {
             var db = FirebaseDatabase.DefaultInstance;
@@ -54,6 +54,23 @@ namespace Data
             }
         }
 
+        public void RemoveActiveGame(string gameName)
+        {
+            int index = 0;
+            
+            foreach (var game in _userInfo.activeGames)
+            {
+                if (game.Contains(gameName))
+                {
+                    _userInfo.activeGames.RemoveAt(index);    
+                }
+
+                index++;
+            }
+
+            SaveUserInfo();
+        }
+        
         public Data.UserInfo LoadUserInfo()
         {
             var db = FirebaseDatabase.DefaultInstance;
