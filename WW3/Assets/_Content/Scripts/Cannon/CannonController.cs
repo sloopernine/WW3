@@ -81,6 +81,20 @@ public class CannonController : MonoBehaviour
         buttons.SetActive(false);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Shells")
+        {
+            Die();    
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player " + playerIndex + " died");
+        DataManager.INSTANCE.GameData.players[playerIndex].isAlive = false;
+    }
+
     private void OnGameStateChanged(GameStateManager.GameState gamestate)
     {
     //     if (DataManager.INSTANCE.GameData.players[DataManager.INSTANCE.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)

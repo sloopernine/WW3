@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         _dataManager.GameData = JsonUtility.FromJson<GameData>(jsonData);
         
-        if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
+        if (GetIfActivePlayerTurn())
         {
             if (_dataManager.GameData.firstTurn)
             {
@@ -107,9 +107,16 @@ public class GameManager : MonoBehaviour
 
     void ReplayFinished()
     {
-        GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+        if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
+        {
+            GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+        }
+        else
+        {
+            
+        }
     }
-
+    
     void OnGameStateChanged(GameStateManager.GameState gameState)
     {
         if (gameState == GameStateManager.GameState.PlayersTurn)
@@ -121,6 +128,16 @@ public class GameManager : MonoBehaviour
         {
             opponentsTurnText.SetActive(true);
         }
+    }
+
+    public bool GetIfActivePlayerTurn()
+    {
+        if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
+        {
+            return true;
+        }
+
+        return false;
     }
     
     private int GetLastTurn(int currentTurn)
