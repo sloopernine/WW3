@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("You are dead, war goes on without you");
                 ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+                _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
             }
         }
@@ -133,11 +134,15 @@ public class GameManager : MonoBehaviour
             if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
             {
                 Debug.Log("You won, gz!");
+                ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+                _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.Victory);
             }
             else
             {
                 Debug.Log("You are dead, war goes on without you");
+                ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+                _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
             }
         }

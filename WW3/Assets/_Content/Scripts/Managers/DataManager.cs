@@ -18,7 +18,7 @@ namespace Managers
         private UserInfo _activeUser;
 
         public delegate void OnDataFetched(string jsonData);
-        
+
         public GameData GameData
         {
             get => _gameData;
@@ -50,6 +50,21 @@ namespace Managers
         public void SaveGameDataToFirebase()
         {
             
+        }
+
+        public void RemovePlayerFromGame(string playerID)
+        {
+            int index = 0;
+            
+            foreach (var player in _gameData.players)
+            {
+                if (player.playerID.Contains(playerID))
+                {
+                    _gameData.players.RemoveAt(index);        
+                }
+
+                index++;
+            }
         }
         
         private IEnumerator SaveUserDataToFirebase(string data)

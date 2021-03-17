@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InGameUI : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class InGameUI : MonoBehaviour
     public TMP_Text angle;
 
     public GameObject winPanel;
-    public GameObject losePanel;
+    public GameObject GameOverPanel;
     
     private void OnEnable()
     {
@@ -26,7 +27,7 @@ public class InGameUI : MonoBehaviour
     private void Start()
     {
         winPanel.SetActive(false);
-        losePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
 
     private void OnGameStateChange(GameStateManager.GameState newGameState)
@@ -38,8 +39,13 @@ public class InGameUI : MonoBehaviour
 
         if (newGameState == GameStateManager.GameState.GameOver)
         {
-            losePanel.SetActive(true);
+            GameOverPanel.SetActive(true);
         }
+    }
+
+    public void BackToMenuScene()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
     
     private void Update()

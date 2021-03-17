@@ -107,6 +107,8 @@ public class CannonController : MonoBehaviour
 
         cannonSprite.enabled = false;
         cannonBaseSprite.enabled = false;
+        
+        //TODO Somehow save that this player has died to database
     }
 
     private void OnGameStateChanged(GameStateManager.GameState gamestate)
