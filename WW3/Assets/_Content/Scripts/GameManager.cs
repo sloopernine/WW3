@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject opponentsTurnText;
 
     public List<CannonController> _players;
+
+    public CannonController localPlayer;
     
     #region Settings
 
@@ -44,10 +46,21 @@ public class GameManager : MonoBehaviour
     {
         GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
         FirebaseDatabase.DefaultInstance.GetReference("games/" + _dataManager.GameData.gameID).Child("currentTurn").ValueChanged += TurnUpdated;
+        CollectPlayers();
+        localPlayer = _players[GetLocalPlayerIndex()];
+    }
 
+    public void CollectPlayers()
+    {
+        int index = 0;
+        
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            _players.Add(player.GetComponent<CannonController>());            
+            CannonController cannonController = player.GetComponent<CannonController>();
+            cannonController.playerIndex = index; 
+            
+            _players.Add(cannonController);
+            index++;
         }
     }
 
@@ -72,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         _dataManager.GameData = JsonUtility.FromJson<GameData>(jsonData);
         
-        if (GetIfActivePlayerTurn())
+        if (GetIfLocalPlayerTurn())
         {
             if (_dataManager.GameData.firstTurn)
             {
@@ -153,7 +166,6 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStateManager.GameState.PlayersTurn)
         {
             opponentsTurnText.SetActive(false);
-            _players[_dataManager.GameData.currentTurn].GetComponent<CannonController>().buttons.SetActive(true);
         }
         else if(gameState == GameStateManager.GameState.OpponentTurn)
         {
@@ -161,7 +173,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool GetIfActivePlayerTurn()
+    public bool GetIfLocalPlayerTurn()
     {
         if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
         {
@@ -169,6 +181,23 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private int GetLocalPlayerIndex()
+    {
+        int index = 0;
+        
+        foreach (PlayerInfo player in _dataManager.GameData.players)
+        {
+            if (player.playerID == ActiveUser.INSTANCE._userInfo.userID)
+            {
+                return index;
+            }
+
+            index++;
+        }
+
+        return -1;
     }
     
     private int GetLastTurn(int currentTurn)
@@ -211,15 +240,5 @@ public class GameManager : MonoBehaviour
         string jsonData = JsonUtility.ToJson(_dataManager.GameData);
         
         FirebaseManager.INSTANCE.SaveData("games/" + _dataManager.GameData.gameID, jsonData);
-    }
-    
-    public void UpdateFirepower(float value)
-    {
-        //playerInfo.firepower += value;
-    }
-    
-    public void UpdateAngle(float value)
-    {
-        //playerInfo.angle = value;
     }
 }

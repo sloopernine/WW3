@@ -1,0 +1,96 @@
+Date : 2021-03-20 23:21:40
+Directory : e:\Github\WW3\WW3\Assets\_Content\Scripts
+Total : 59 files,  2883 codes, 259 comments, 683 blanks, all 3825 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |         57 |      2,873 |        259 |        683 |      3,815 |
+| JSON     |          2 |         10 |          0 |          0 |         10 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                             | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                |         59 |      2,883 |        259 |        683 |      3,825 |
+| .vs                                                                              |          2 |         10 |          0 |          0 |         10 |
+| Cannon                                                                           |          7 |        238 |         20 |         62 |        320 |
+| Data                                                                             |         10 |        402 |          4 |         79 |        485 |
+| Data\DataContainers                                                              |          2 |         31 |          0 |          1 |         32 |
+| Data\Interfaces                                                                  |          2 |         16 |          0 |          2 |         18 |
+| Managers                                                                         |          2 |        128 |          2 |         31 |        161 |
+| Menu                                                                             |          5 |        347 |          8 |         85 |        440 |
+| OLD                                                                              |         21 |      1,067 |        183 |        260 |      1,510 |
+| OLD\FirebaseProject                                                              |          9 |        620 |         80 |        138 |        838 |
+| OmniLib                                                                          |          1 |         37 |         15 |          7 |         59 |
+| OmniLib\Math                                                                     |          1 |         37 |         15 |          7 |         59 |
+| OmniWorld                                                                        |          7 |        258 |         19 |         72 |        349 |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                         | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\.vs\ProjectSettings.json               | JSON     |          3 |          0 |          0 |          3 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\.vs\VSWorkspaceState.json              | JSON     |          7 |          0 |          0 |          7 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\CannonBall.cs                   | C#       |         27 |          0 |          5 |         32 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\CannonController.cs             | C#       |         76 |         16 |         21 |        113 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\CannonSounds.cs                 | C#       |         30 |          0 |         10 |         40 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\Die.cs                          | C#       |         32 |          1 |         10 |         43 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\FireCannon.cs                   | C#       |         25 |          3 |          8 |         36 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\Particles.cs                    | C#       |         22 |          0 |          4 |         26 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Cannon\TakeDamage.cs                   | C#       |         26 |          0 |          4 |         30 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\ActiveUser.cs                     | C#       |         81 |          2 |         19 |        102 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\DataContainers\GameData.cs        | C#       |         17 |          0 |          1 |         18 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\DataContainers\Signal.cs          | C#       |         14 |          0 |          0 |         14 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\FirebaseLoad.cs                   | C#       |         47 |          2 |         12 |         61 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\FirebaseManager.cs                | C#       |         71 |          0 |         18 |         89 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\FirebaseSave.cs                   | C#       |         20 |          0 |          3 |         23 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\FirebaseUserAuth.cs               | C#       |         88 |          0 |         18 |        106 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\GameData.cs                       | C#       |         48 |          0 |          6 |         54 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\Interfaces\IAcceptSignal.cs       | C#       |          8 |          0 |          1 |          9 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Data\Interfaces\ISendSignal.cs         | C#       |          8 |          0 |          1 |          9 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\GameManager.cs                         | C#       |        201 |          2 |         42 |        245 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\GameSlot.cs                            | C#       |         70 |          0 |         17 |         87 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\InGameInputUI.cs                       | C#       |         67 |          0 |         15 |         82 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\InGameUI.cs                            | C#       |         58 |          6 |         13 |         77 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Managers\DataManager.cs                | C#       |         94 |          2 |         23 |        119 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Managers\GameStateManager.cs           | C#       |         34 |          0 |          8 |         42 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Menu\JoinPanel.cs                      | C#       |         82 |          7 |         24 |        113 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Menu\Lobby.cs                          | C#       |         72 |          1 |         19 |         92 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Menu\MainMenuManager.cs                | C#       |        169 |          0 |         39 |        208 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Menu\MessagePanel.cs                   | C#       |         12 |          0 |          2 |         14 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\Menu\SignOut.cs                        | C#       |         12 |          0 |          1 |         13 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\CloseWindow.cs     | C#       |         15 |          0 |          1 |         16 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\DataManager.cs     | C#       |        105 |         14 |         25 |        144 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\DataWrapper.cs     | C#       |         13 |          1 |          1 |         15 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\FirebaseManager.cs | C#       |        106 |          4 |         20 |        130 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\FirebaseUtility.cs | C#       |        159 |          4 |         33 |        196 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\JsonManager.cs     | C#       |         84 |         55 |         29 |        168 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\MainMenu.cs        | C#       |        116 |          2 |         27 |        145 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\Player.cs          | C#       |         10 |          0 |          1 |         11 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseProject\PlayerData.cs      | C#       |         12 |          0 |          1 |         13 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\FirebaseTest.cs                    | C#       |         54 |          2 |         10 |         66 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\LevelManager.cs                    | C#       |         15 |          0 |          2 |         17 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\NameTagManager.cs                  | C#       |         33 |          2 |          8 |         43 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\PlayerController.cs                | C#       |         12 |          2 |          5 |         19 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\PlayerInfo.cs                      | C#       |         14 |          0 |          3 |         17 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\PlayerKeyboard.cs                  | C#       |         18 |          2 |          5 |         25 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\PlayerMouse.cs                     | C#       |         29 |          2 |          6 |         37 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\PlayerMovement.cs                  | C#       |         22 |          1 |          6 |         29 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\SaveManager.cs                     | C#       |         93 |         55 |         34 |        182 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\SaveManagerOld.cs                  | C#       |        107 |         27 |         32 |        166 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\SaveNames.cs                       | C#       |         22 |          1 |          4 |         27 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OLD\Tools.cs                           | C#       |         28 |          9 |          7 |         44 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniLib\Math\Vector2.cs                | C#       |         37 |         15 |          7 |         59 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\MeshGenerator.cs             | C#       |          7 |          0 |          2 |          9 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\PathData.cs                  | C#       |         33 |          0 |          6 |         39 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\SegmentData.cs               | C#       |         69 |          9 |         21 |         99 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\Terrain.cs                   | C#       |         94 |         10 |         23 |        127 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\TerrainData.cs               | C#       |          9 |          0 |          3 |         12 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\TerrainFill.cs               | C#       |          7 |          0 |          2 |          9 |
+| e:\Github\WW3\WW3\Assets\_Content\Scripts\OmniWorld\TestScript.cs                | C#       |         39 |          0 |         15 |         54 |
+| Total                                                                            |          |      2,883 |        259 |        683 |      3,825 |
++----------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

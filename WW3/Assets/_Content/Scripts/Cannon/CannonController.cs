@@ -1,19 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Data.Interfaces;
 using Data;
+using Data.DataContainers;
 using Managers;
 using UnityEngine;
 
-public class CannonController : MonoBehaviour
+public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
 {
     public GameObject cannon;
     public GameObject anchorPoint;
     public GameObject cannonBall;
     
-    public ParticleSystem dustCloud;
-    public ParticleSystem fireCloud;
-
     private SpriteRenderer cannonBaseSprite;
     private SpriteRenderer cannonSprite;
     
@@ -21,24 +20,14 @@ public class CannonController : MonoBehaviour
 
     public int playerIndex;
     
-    public AudioClip rotateSound;
-    private AudioSource _audioSource;
+    private List<IAcceptSignal> receivers = new List<IAcceptSignal>();
+    
+    // private void OnEnable()
+    // {
+    //     GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
+    // }
 
-    public GameObject buttons;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-
-        cannonBaseSprite = GetComponent<SpriteRenderer>();
-        cannonSprite = cannon.GetComponent<SpriteRenderer>();
-        
-        GameManager.INSTANCE.UpdateAngle(cannon.transform.localEulerAngles.z);
-        GameManager.INSTANCE.UpdateFirepower(firePower);
-    }
-
-    private void OnEnable()
+    private void Start()
     {
         GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
     }
@@ -48,10 +37,27 @@ public class CannonController : MonoBehaviour
         GameStateManager.INSTANCE.onChangeGameState -= OnGameStateChanged;
     }
 
+    public void ReceiveSignal(Signal signal)
+    {
+        SendSignal(signal);
+    }
+    
+    public void SendSignal(Signal signal)
+    {
+        foreach (IAcceptSignal receiver in receivers)
+        {
+            receiver.ReceiveSignal(signal);
+        }
+    }
+
+    public void RegisterReceiver(IAcceptSignal receiver)
+    {
+        receivers.Add(receiver);
+    }
+    
     public void RotateCannon(float value)
     {
         cannon.transform.Rotate(0f, 0f, value, Space.Self);
-        GameManager.INSTANCE.UpdateAngle(cannon.transform.localEulerAngles.z);
     }
 
     public void SetFirepower(float value)
@@ -66,13 +72,12 @@ public class CannonController : MonoBehaviour
     
     public void StartRotateCannon()
     {
-        _audioSource.clip = rotateSound;
-        _audioSource.Play();
+        SendSignal(Signal.StartRotate);
     }
     
     public void StopRotateCannon()
     {
-        _audioSource.Stop();
+        SendSignal(Signal.StopRotate);
     }
 
     public void FireCannon()
@@ -87,30 +92,8 @@ public class CannonController : MonoBehaviour
     public void EndTurn()
     {
         GameManager.INSTANCE.EndTurn(firePower, cannon.transform.localEulerAngles.z);
-        buttons.SetActive(false);
     }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Shells")
-        {
-            Die();    
-        }
-    }
-
-    private void Die()
-    {
-        Debug.Log("Player " + playerIndex + " died");
-        DataManager.INSTANCE.GameData.players[playerIndex].isAlive = false;
-        dustCloud.Play();
-        fireCloud.Play();
-
-        cannonSprite.enabled = false;
-        cannonBaseSprite.enabled = false;
-        
-        //TODO Somehow save that this player has died to database
-    }
-
+    
     private void OnGameStateChanged(GameStateManager.GameState gamestate)
     {
     //     if (DataManager.INSTANCE.GameData.players[DataManager.INSTANCE.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)

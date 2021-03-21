@@ -12,12 +12,14 @@ public class InGameUI : MonoBehaviour
     public TMP_Text angle;
 
     public GameObject winPanel;
-    public GameObject GameOverPanel;
+    public GameObject gameOverPanel;
+    public GameObject cannonControlsPanel;
+    public TMP_Text debugText;
     
-    private void OnEnable()
-    {
-        GameStateManager.INSTANCE.onChangeGameState += OnGameStateChange;
-    }
+    // private void OnEnable()
+    // {
+    //     GameStateManager.INSTANCE.onChangeGameState += OnGameStateChange;
+    // }
 
     private void OnDisable()
     {
@@ -26,12 +28,30 @@ public class InGameUI : MonoBehaviour
 
     private void Start()
     {
+        GameStateManager.INSTANCE.onChangeGameState += OnGameStateChange;
+        
         winPanel.SetActive(false);
-        GameOverPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        cannonControlsPanel.SetActive(false);
     }
-
+    
     private void OnGameStateChange(GameStateManager.GameState newGameState)
     {
+        debugText.text = newGameState.ToString();
+        
+        if (newGameState == GameStateManager.GameState.PlayersTurn)
+        {
+            Debug.Log("it is players turn");
+            debugText.text = "it is players turn";
+            cannonControlsPanel.SetActive(true);            
+        }
+        else
+        {
+            Debug.Log("It is not players turn");
+            debugText.text = "It is not players turn";
+            cannonControlsPanel.SetActive(false);
+        }
+        
         if (newGameState == GameStateManager.GameState.Victory)
         {
             winPanel.SetActive(true);
@@ -39,7 +59,7 @@ public class InGameUI : MonoBehaviour
 
         if (newGameState == GameStateManager.GameState.GameOver)
         {
-            GameOverPanel.SetActive(true);
+            gameOverPanel.SetActive(true);
         }
     }
 
@@ -47,7 +67,7 @@ public class InGameUI : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-    
+
     private void Update()
     {
         //firepower.text = "Firepower: " + GameManager.INSTANCE.playerInfo.firepower.ToString();
