@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace Cannon
 {
-    public class CannonSounds : MonoBehaviour, IAcceptSignal
+    public class Sounds : MonoBehaviour, IAcceptSignal
     {
         public AudioClip rotateSound;
-
+        public AudioClip setPower;
+        public AudioClip fireCannon;
+        
         private AudioSource _audioSource;
 
         private void Start()
@@ -32,6 +34,25 @@ namespace Cannon
                 case Signal.StopRotate:
                     
                     _audioSource.Stop();
+                    
+                    break;
+                
+                case Signal.StartSetPower:
+
+                    _audioSource.clip = setPower;
+                    _audioSource.Play();
+                    
+                    break;
+                
+                case Signal.StopSetPower:
+
+                    _audioSource.Stop();
+                    
+                    break;
+                
+                case Signal.FireCannon:
+
+                    _audioSource.PlayOneShot(fireCannon);
                     
                     break;
             }

@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class InGameInputUI : MonoBehaviour
 {
+    private CannonController localPlayer;
+    
     public float firepowerStep;
     public float rotationStep;
 
     private bool beginToRotate;
-
+    private bool beginToSetPower;
+    
     private void Start()
     {
+        localPlayer = GameManager.INSTANCE.localPlayer;
+        
         beginToRotate = true;
+        beginToSetPower = true;
     }
     
     public void RotateClockwise()
@@ -30,7 +36,7 @@ public class InGameInputUI : MonoBehaviour
     {
         if (beginToRotate)
         {
-            GameManager.INSTANCE.localPlayer.StartRotateCannon();
+            localPlayer.StartRotateCannon();
             beginToRotate = false;
         }
 
@@ -41,7 +47,7 @@ public class InGameInputUI : MonoBehaviour
     {
         while(true)
         {
-            GameManager.INSTANCE.localPlayer.RotateCannon((rotationStep * -1) * Time.deltaTime);
+            localPlayer.RotateCannon((rotationStep * -1) * Time.deltaTime);
             yield return null;
         }
     }
@@ -50,14 +56,14 @@ public class InGameInputUI : MonoBehaviour
     {
         while (true)
         {
-            GameManager.INSTANCE.localPlayer.RotateCannon(rotationStep * Time.deltaTime);
+            localPlayer.RotateCannon(rotationStep * Time.deltaTime);
             yield return null;
         }
     }
 
     public void StopRotating()
     {
-        GameManager.INSTANCE.localPlayer.StopRotateCannon();
+        localPlayer.StopRotateCannon();
         beginToRotate = true;
         
         StopAllCoroutines();
@@ -65,17 +71,35 @@ public class InGameInputUI : MonoBehaviour
 
     public void DecreasePower()
     {
-        GameManager.INSTANCE.localPlayer.SetFirepower((firepowerStep * -1) * Time.deltaTime);
+        if (beginToSetPower)
+        {
+            localPlayer.StartToSetPower();
+            beginToSetPower = false;
+        }
+        
+        localPlayer.SetFirepower((firepowerStep * -1) * Time.deltaTime);
     }
 
     public void IncreasePower()
     {
-        GameManager.INSTANCE.localPlayer.SetFirepower(firepowerStep * Time.deltaTime);
+        if (beginToSetPower)
+        {
+            localPlayer.StartToSetPower();
+            beginToSetPower = false;
+        }
+        
+        localPlayer.SetFirepower(firepowerStep * Time.deltaTime);
+    }
+
+    public void StopSetPower()
+    {
+        localPlayer.StopSetFirepower();
+        beginToSetPower = true;
     }
 
     public void Fire()
     {
-        GameManager.INSTANCE.localPlayer.FireCannon();
-        GameManager.INSTANCE.localPlayer.EndTurn();
+        localPlayer.FireCannon();
+        localPlayer.EndTurn();
     }
 }

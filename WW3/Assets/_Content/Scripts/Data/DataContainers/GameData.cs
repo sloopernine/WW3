@@ -11,8 +11,9 @@ namespace Data.DataContainers
         public string creationDate;
         public string gameName;
         public string creatorUserID;
-        public int worldSeed;
+        public int worldSeed; //TODO Remove?
         public List<PlayerInfo> players = new List<PlayerInfo>();
+        public int nextPlayer;
         public int currentTurn;
         public bool firstTurn;
     }
@@ -22,10 +23,10 @@ namespace Data.DataContainers
     {
         public string playerID;
         public string nickname;
-        public Vector2 position;
+        public Vector2 position; //TODO Remove?
         public bool isAlive;
         public float angle;
-        public float lastAngle;
+        public float lastAngle; //TODO Remove?
         public float firepower;
         
         public PlayerInfo()

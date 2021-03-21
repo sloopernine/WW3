@@ -5078,7 +5078,6 @@ MonoBehaviour:
   cannonBall: {fileID: 8753772603543146929, guid: 32617591f5fec3948b677833953b0b80, type: 3}
   firePower: 20
   playerIndex: 0
-  buttons: {fileID: 0}
 --- !u!114 &2552158540732503864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5092,6 +5091,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSound: {fileID: 8300000, guid: bb00d601cba415044800d6370cd081dc, type: 3}
+  setPower: {fileID: 8300000, guid: 97f59ad4b29d3904a9a4e8eb1ab5f88b, type: 3}
+  fireCannon: {fileID: 8300000, guid: 40afa52b8509b7b45af7b7c43914064f, type: 3}
 --- !u!114 &7471900329082608061
 MonoBehaviour:
   m_ObjectHideFlags: 0

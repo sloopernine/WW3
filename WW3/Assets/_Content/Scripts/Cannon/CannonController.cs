@@ -60,9 +60,19 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
         cannon.transform.Rotate(0f, 0f, value, Space.Self);
     }
 
+    public void StartToSetPower()
+    {
+        SendSignal(Signal.StartSetPower);
+    }
+    
     public void SetFirepower(float value)
     {
         firePower += value;
+    }
+
+    public void StopSetFirepower()
+    {
+        SendSignal(Signal.StopSetPower);
     }
 
     public void SetAngle(float value)
@@ -87,6 +97,8 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
         GameObject cannonBall = Instantiate(this.cannonBall, anchorPoint.transform.position, Quaternion.identity);
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
         rb.AddForce(direction * firePower, ForceMode2D.Impulse);
+        
+        SendSignal(Signal.FireCannon);
     }
 
     public void EndTurn()

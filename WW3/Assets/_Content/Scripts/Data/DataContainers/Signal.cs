@@ -4,10 +4,12 @@
     {
         IncreasePower,
         DecreasePower,
+        StartSetPower,
+        StopSetPower,
         StartRotate,
         StopRotate,
         Die,
-        Fire,
+        FireCannon,
         StartTurn,
         EndTurn
     }

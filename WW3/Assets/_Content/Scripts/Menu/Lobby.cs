@@ -69,9 +69,9 @@ namespace Menu
                 Destroy(child.gameObject);
             }
             
-            foreach (var gameID in ActiveUser.INSTANCE._userInfo.activeGames)
+            foreach (var activeGame in ActiveUser.INSTANCE._userInfo.activeGames)
             {
-                StartCoroutine(FirebaseManager.INSTANCE.LoadData("games/" + gameID, AddGameToList));
+                StartCoroutine(FirebaseManager.INSTANCE.LoadData("games/" + activeGame.gameID, AddGameToList));
             }
         }
 
