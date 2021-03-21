@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Tools
+namespace OmniLib
 {
+    public static class Tools
+    {
         public static float WrapAngle(float angle)
         {
             angle%=360;
@@ -40,4 +42,6 @@ public static class Tools
             te.SelectAll();
             te.Copy();
         }
+    }
 }
+
