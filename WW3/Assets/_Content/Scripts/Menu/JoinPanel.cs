@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Data;
 using Data.DataContainers;
 using Firebase.Database;
@@ -68,8 +67,8 @@ namespace Menu
                     data = child.GetRawJsonValue();
                 }
 
-                Data.DataContainers.GameData gameData = new Data.DataContainers.GameData();
-                gameData = JsonUtility.FromJson<Data.DataContainers.GameData>(data);
+                GameData gameData = new GameData();
+                gameData = JsonUtility.FromJson<GameData>(data);
                 
                 //Check if the selected game have open player slots
                 if (gameData.players.Count >= 2)
@@ -82,13 +81,13 @@ namespace Menu
                     //If everything checks out, add the game to players active games
                     string path = "games/" + gameData.gameID;
                     
-                    Data.DataContainers.PlayerInfo newPlayer = new Data.DataContainers.PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
+                    PlayerInfo newPlayer = new PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
                     
                     gameData.players.Add(newPlayer);
 
                     string newData = JsonUtility.ToJson(gameData);
                     
-                    Data.FirebaseManager.INSTANCE.SaveData(path, newData);
+                    FirebaseManager.INSTANCE.SaveData(path, newData);
 
                     ActiveGame newActiveGame = new ActiveGame();
                     newActiveGame.gameID = gameData.gameID;

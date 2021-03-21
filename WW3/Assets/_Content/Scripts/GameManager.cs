@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data;
+using Data.DataContainers;
 using Firebase.Auth;
 using Firebase.Database;
 using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using PlayerInfo = Data.DataContainers.PlayerInfo;
 
 public class GameManager : MonoBehaviour
 {

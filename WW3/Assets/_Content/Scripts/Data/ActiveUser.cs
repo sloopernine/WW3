@@ -12,7 +12,7 @@ namespace Data
     {
         public static ActiveUser INSTANCE;
 
-        public Data.DataContainers.UserInfo _userInfo;
+        public UserInfo _userInfo;
         
         private void Awake()
         {
@@ -26,7 +26,7 @@ namespace Data
 
         private void Start()
         {
-            _userInfo = new Data.DataContainers.UserInfo();
+            _userInfo = new UserInfo();
         }
 
         public void SaveUserInfo()
@@ -72,7 +72,7 @@ namespace Data
             SaveUserInfo();
         }
         
-        public Data.DataContainers.UserInfo LoadUserInfo()
+        public UserInfo LoadUserInfo()
         {
             var db = FirebaseDatabase.DefaultInstance;
             var userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;

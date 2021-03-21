@@ -51,7 +51,7 @@ namespace Menu
             string path = "games/" + key;
             string data = JsonUtility.ToJson(gameData);
             
-            Data.FirebaseManager.INSTANCE.SaveData(path, data);
+            FirebaseManager.INSTANCE.SaveData(path, data);
 
             ActiveGame newActiveGame = new ActiveGame();
             newActiveGame.gameID = gameData.gameID;

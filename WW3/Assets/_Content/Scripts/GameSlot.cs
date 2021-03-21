@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Data;
+using Data.DataContainers;
 using Firebase.Database;
 using Managers;
 using TMPro;
@@ -53,7 +51,7 @@ public class GameSlot : MonoBehaviour
 
     public void LoadScene(string jsonData)
     {
-        DataManager.INSTANCE.GameData = JsonUtility.FromJson<Data.DataContainers.GameData>(jsonData);
+        DataManager.INSTANCE.GameData = JsonUtility.FromJson<GameData>(jsonData);
         SceneManager.LoadScene("_Content/Scenes/GameScene");
     }
     
@@ -71,9 +69,9 @@ public class GameSlot : MonoBehaviour
         }
         string jsonData = args.Snapshot.GetRawJsonValue();
 
-        Data.DataContainers.GameData gameData = new Data.DataContainers.GameData();
+        GameData gameData = new GameData();
         
-        gameData = JsonUtility.FromJson<Data.DataContainers.GameData>(jsonData);
+        gameData = JsonUtility.FromJson<GameData>(jsonData);
 
         playerName1.text = gameData.players[0].nickname;
         
