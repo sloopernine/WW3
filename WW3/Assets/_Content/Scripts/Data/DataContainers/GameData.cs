@@ -13,7 +13,7 @@ namespace Data.DataContainers
         public string creatorUserID;
         public int worldSeed; //TODO Remove?
         public List<PlayerInfo> players = new List<PlayerInfo>();
-        public int nextPlayer;
+        public int currentPlayer;
         public int currentTurn;
         public bool firstTurn;
     }
