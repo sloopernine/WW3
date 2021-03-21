@@ -8,7 +8,7 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using PlayerInfo = Data.PlayerInfo;
+using PlayerInfo = Data.DataContainers.PlayerInfo;
 
 public class GameManager : MonoBehaviour
 {
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     void GameDataUpdated(string jsonData)
     {
-        _dataManager.GameData = JsonUtility.FromJson<GameData>(jsonData);
+        _dataManager.GameData = JsonUtility.FromJson<Data.DataContainers.GameData>(jsonData);
         
         if (GetIfLocalPlayerTurn())
         {

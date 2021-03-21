@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Data.DataContainers;
 using Data;
 using Firebase.Auth;
 using Firebase.Database;
@@ -35,14 +36,14 @@ namespace Menu
             
             string key = FirebaseDatabase.DefaultInstance.RootReference.Child("games/").Push().Key;
 
-            Data.PlayerInfo newPlayer = new Data.PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
+            PlayerInfo newPlayer = new PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
          
             
             GameData gameData = new GameData();
             gameData.gameID = key;
             gameData.creationDate = date;
             gameData.gameName = gameName;
-            gameData.creator = ActiveUser.INSTANCE._userInfo.userID;
+            gameData.creatorUserID = ActiveUser.INSTANCE._userInfo.userID;
             gameData.players.Add(newPlayer);
             gameData.currentTurn = 1; // 1 instead of 0 to better fit List.Count
             gameData.firstTurn = true;
@@ -51,8 +52,11 @@ namespace Menu
             string data = JsonUtility.ToJson(gameData);
             
             Data.FirebaseManager.INSTANCE.SaveData(path, data);
+
+            ActiveGame newActiveGame = new ActiveGame();
+            newActiveGame.gameID = gameData.gameID;
             
-            ActiveUser.INSTANCE._userInfo.activeGames.Add(gameData.gameID);
+            ActiveUser.INSTANCE._userInfo.activeGames.Add(newActiveGame);
             ActiveUser.INSTANCE.SaveUserInfo();
 
             UpdateGameList();

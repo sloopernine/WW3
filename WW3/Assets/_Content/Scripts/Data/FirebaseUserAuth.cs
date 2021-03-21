@@ -90,7 +90,7 @@ namespace Data
             }
             else
             {
-                UserInfo userInfo = new UserInfo();
+                DataContainers.UserInfo userInfo = new DataContainers.UserInfo();
                 userInfo.userID = auth.CurrentUser.UserId;
                 userInfo.nickname = nickname;
                 ActiveUser.INSTANCE._userInfo = userInfo;

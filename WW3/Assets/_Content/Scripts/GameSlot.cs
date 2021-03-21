@@ -53,7 +53,7 @@ public class GameSlot : MonoBehaviour
 
     public void LoadScene(string jsonData)
     {
-        DataManager.INSTANCE.GameData = JsonUtility.FromJson<GameData>(jsonData);
+        DataManager.INSTANCE.GameData = JsonUtility.FromJson<Data.DataContainers.GameData>(jsonData);
         SceneManager.LoadScene("_Content/Scenes/GameScene");
     }
     
@@ -71,9 +71,9 @@ public class GameSlot : MonoBehaviour
         }
         string jsonData = args.Snapshot.GetRawJsonValue();
 
-        GameData gameData = new GameData();
+        Data.DataContainers.GameData gameData = new Data.DataContainers.GameData();
         
-        gameData = JsonUtility.FromJson<GameData>(jsonData);
+        gameData = JsonUtility.FromJson<Data.DataContainers.GameData>(jsonData);
 
         playerName1.text = gameData.players[0].nickname;
         

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Data;
+using Data.DataContainers;
 using Firebase.Database;
 using TMPro;
 using UnityEngine;
@@ -29,9 +30,9 @@ namespace Menu
             }
 
             //Check if already joined this game
-            foreach (var gameName in ActiveUser.INSTANCE._userInfo.activeGames)
+            foreach (var activeGame in ActiveUser.INSTANCE._userInfo.activeGames)
             {
-                if (gameName == inviteCode)
+                if (activeGame.gameID == inviteCode)
                 {
                     inviteCodeInput.text = "";
                     MainMenuManager.INSTANCE.DisplayMessage("You have already joined this game", MainMenuManager.MenuState.lobby);
@@ -67,8 +68,8 @@ namespace Menu
                     data = child.GetRawJsonValue();
                 }
 
-                GameData gameData = new GameData();
-                gameData = JsonUtility.FromJson<GameData>(data);
+                Data.DataContainers.GameData gameData = new Data.DataContainers.GameData();
+                gameData = JsonUtility.FromJson<Data.DataContainers.GameData>(data);
                 
                 //Check if the selected game have open player slots
                 if (gameData.players.Count >= 2)
@@ -81,15 +82,18 @@ namespace Menu
                     //If everything checks out, add the game to players active games
                     string path = "games/" + gameData.gameID;
                     
-                    Data.PlayerInfo newPlayer = new Data.PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
+                    Data.DataContainers.PlayerInfo newPlayer = new Data.DataContainers.PlayerInfo(ActiveUser.INSTANCE._userInfo.userID, ActiveUser.INSTANCE._userInfo.nickname);
                     
                     gameData.players.Add(newPlayer);
 
                     string newData = JsonUtility.ToJson(gameData);
                     
                     Data.FirebaseManager.INSTANCE.SaveData(path, newData);
+
+                    ActiveGame newActiveGame = new ActiveGame();
+                    newActiveGame.gameID = gameData.gameID;
                     
-                    ActiveUser.INSTANCE._userInfo.activeGames.Add(gameData.gameID);
+                    ActiveUser.INSTANCE._userInfo.activeGames.Add(newActiveGame);
                     ActiveUser.INSTANCE.SaveUserInfo();
                     
                     MainMenuManager.INSTANCE.DisplayMessage("Game " + inviteCode + " added", MainMenuManager.MenuState.lobby);

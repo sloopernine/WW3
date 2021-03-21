@@ -8,11 +8,11 @@ namespace Data.DataContainers
     {
         public string userID;
         public string nickname;
-        public List<ActiveGames> activeGames = new List<ActiveGames>();
+        public List<ActiveGame> activeGames = new List<ActiveGame>();
     }
 
     [Serializable]
-    public class ActiveGames
+    public class ActiveGame
     {
         public string gameID;
         public int currentTurn;

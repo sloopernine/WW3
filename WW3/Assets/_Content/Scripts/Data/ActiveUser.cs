@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Data.DataContainers;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
@@ -11,7 +12,7 @@ namespace Data
     {
         public static ActiveUser INSTANCE;
 
-        public UserInfo _userInfo;
+        public Data.DataContainers.UserInfo _userInfo;
         
         private void Awake()
         {
@@ -25,7 +26,7 @@ namespace Data
 
         private void Start()
         {
-            _userInfo = new UserInfo();
+            _userInfo = new Data.DataContainers.UserInfo();
         }
 
         public void SaveUserInfo()
@@ -58,9 +59,9 @@ namespace Data
         {
             int index = 0;
             
-            foreach (var game in _userInfo.activeGames)
+            foreach (var activeGame in _userInfo.activeGames)
             {
-                if (game.Contains(gameName))
+                if (activeGame.gameID.Contains(gameName))
                 {
                     _userInfo.activeGames.RemoveAt(index);    
                 }
@@ -71,7 +72,7 @@ namespace Data
             SaveUserInfo();
         }
         
-        public Data.UserInfo LoadUserInfo()
+        public Data.DataContainers.UserInfo LoadUserInfo()
         {
             var db = FirebaseDatabase.DefaultInstance;
             var userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
