@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -12,11 +13,8 @@ public class InGameUI : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject cannonControlsPanel;
     public TMP_Text debugText;
-    
-    // private void OnEnable()
-    // {
-    //     GameStateManager.INSTANCE.onChangeGameState += OnGameStateChange;
-    // }
+
+    private bool updateText;
 
     private void OnDisable()
     {
@@ -31,7 +29,21 @@ public class InGameUI : MonoBehaviour
         gameOverPanel.SetActive(false);
         cannonControlsPanel.SetActive(false);
     }
-    
+
+    private void Update()
+    {
+        if (updateText)
+        {
+            firepower.text = "FirePower: " + GameManager.INSTANCE.localPlayer.firePower.ToString("F2");
+            angle.text = "Angle: " + GameManager.INSTANCE.localPlayer.cannon.transform.localEulerAngles.z.ToString("F2");
+        }
+        else
+        {
+            firepower.text = "";
+            angle.text = "";
+        }
+    }
+
     private void OnGameStateChange(GameStateManager.GameState newGameState)
     {
         debugText.text = newGameState.ToString();
@@ -40,12 +52,16 @@ public class InGameUI : MonoBehaviour
         {
             Debug.Log("it is players turn");
             debugText.text = "it is players turn";
+
+            updateText = true;
             cannonControlsPanel.SetActive(true);            
         }
         else
         {
             Debug.Log("It is not players turn");
             debugText.text = "It is not players turn";
+
+            updateText = false;
             cannonControlsPanel.SetActive(false);
         }
         
@@ -65,9 +81,9 @@ public class InGameUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void Update()
+    public void UpdatePowerAngleText()
     {
-        //firepower.text = "Firepower: " + GameManager.INSTANCE.playerInfo.firepower.ToString();
-        //angle.text = "Angle: " + GameManager.INSTANCE.playerInfo.angle.ToString();
+        firepower.text = "FirePower: " + GameManager.INSTANCE.localPlayer.firePower.ToString("F2");
+        angle.text = "Angle: " + GameManager.INSTANCE.localPlayer.cannon.transform.localEulerAngles.z.ToString("F2");
     }
 }

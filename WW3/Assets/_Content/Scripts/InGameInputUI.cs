@@ -6,6 +6,7 @@ using UnityEngine;
 public class InGameInputUI : MonoBehaviour
 {
     private CannonController localPlayer;
+    private InGameUI inGameUI;
     
     public float firepowerStep;
     public float rotationStep;
@@ -16,6 +17,7 @@ public class InGameInputUI : MonoBehaviour
     private void Start()
     {
         localPlayer = GameManager.INSTANCE.localPlayer;
+        inGameUI = GetComponent<InGameUI>();
         
         beginToRotate = true;
         beginToSetPower = true;
@@ -76,8 +78,17 @@ public class InGameInputUI : MonoBehaviour
             localPlayer.StartToSetPower();
             beginToSetPower = false;
         }
-        
-        localPlayer.SetFirepower((firepowerStep * -1) * Time.deltaTime);
+
+        StartCoroutine(DecreasePowerLoop());
+    }
+
+    IEnumerator DecreasePowerLoop()
+    {
+        while (true)
+        {
+            localPlayer.SetFirepower((firepowerStep * -1) * Time.deltaTime);
+            yield return null;
+        }
     }
 
     public void IncreasePower()
@@ -87,14 +98,25 @@ public class InGameInputUI : MonoBehaviour
             localPlayer.StartToSetPower();
             beginToSetPower = false;
         }
-        
-        localPlayer.SetFirepower(firepowerStep * Time.deltaTime);
+
+        StartCoroutine(IncreasePowerLoop());
     }
 
+    IEnumerator IncreasePowerLoop()
+    {
+        while (true)
+        {
+            localPlayer.SetFirepower(firepowerStep * Time.deltaTime);
+            yield return null;
+        }
+    }
+    
     public void StopSetPower()
     {
         localPlayer.StopSetFirepower();
         beginToSetPower = true;
+        
+        StopAllCoroutines();
     }
 
     public void Fire()
