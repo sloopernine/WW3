@@ -1,4 +1,5 @@
 using System.Collections;
+using _Content.Scripts;
 using Data;
 using Data.DataContainers;
 using Firebase.Database;
@@ -22,7 +23,7 @@ namespace Menu
             }
             
             //Check if already joined to many games
-            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= 5)
+            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= Settings.MAX_ACTIVE_GAMES)
             {
                 inviteCodeInput.text = "";
                 MainMenuManager.INSTANCE.DisplayMessage("You already have to many games active", MainMenuManager.MenuState.lobby);
@@ -71,7 +72,7 @@ namespace Menu
                 gameData = JsonUtility.FromJson<GameData>(data);
                 
                 //Check if the selected game have open player slots
-                if (gameData.players.Count >= 2)
+                if (gameData.players.Count >= Settings.MAX_PLAYERS_GAME)
                 {
                     MainMenuManager.INSTANCE.DisplayMessage("No free player slots in game", MainMenuManager.MenuState.lobby);
                     yield break;

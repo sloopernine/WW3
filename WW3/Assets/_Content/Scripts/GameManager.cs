@@ -18,16 +18,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject opponentsTurnText;
 
-    public List<CannonController> _players;
-
+    public List<CannonController> players;
     public CannonController localPlayer;
-    
-    #region Settings
 
-    public int maxActiveGames = 5;
-    public int maxPlayers = 2;
-
-    #endregion
+    private AudioSource audioSource;
+    public AudioClip yourTurnDrum;
     
     public delegate void OnReplayFinished();
     
@@ -39,7 +34,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         
         _dataManager = DataManager.INSTANCE;
-        _players = new List<CannonController>();
+        players = new List<CannonController>();
     }
 
     private void Start()
@@ -47,7 +42,10 @@ public class GameManager : MonoBehaviour
         GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
         FirebaseDatabase.DefaultInstance.GetReference("games/" + _dataManager.GameData.gameID).Child("currentTurn").ValueChanged += TurnUpdated;
         CollectPlayers();
-        localPlayer = _players[GetLocalPlayerIndex()];
+
+        SetupLocalPlayer(GetLocalPlayerIndex());
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void CollectPlayers()
@@ -59,9 +57,15 @@ public class GameManager : MonoBehaviour
             CannonController cannonController = player.GetComponent<CannonController>();
             cannonController.playerIndex = index; 
             
-            _players.Add(cannonController);
+            players.Add(cannonController);
             index++;
         }
+    }
+
+    private void SetupLocalPlayer(int index)
+    {
+        localPlayer = players[index];
+        localPlayer.SetInitialValues(_dataManager.GameData.players[index].firepower, _dataManager.GameData.players[index].angle);
     }
 
     private void OnDisable()
@@ -83,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     void GameDataUpdated(string jsonData)
     {
-        _dataManager.GameData = JsonUtility.FromJson<Data.DataContainers.GameData>(jsonData);
+        _dataManager.GameData = JsonUtility.FromJson<GameData>(jsonData);
         
         if (GetIfLocalPlayerTurn())
         {
@@ -104,8 +108,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowReplay(OnReplayFinished onReplayFinished)
     {
-        int index = GetLastTurn(_dataManager.GameData.currentTurn);
-        CannonController player = _players[index];
+        int index = GetLastPlayersTurn(_dataManager.GameData.currentPlayerTurn);
+        CannonController player = players[index];
         
         player.firePower = _dataManager.GameData.players[index].firepower;
         player.SetAngle(_dataManager.GameData.players[index].angle);
@@ -130,7 +134,7 @@ public class GameManager : MonoBehaviour
 
         if (playersAlive >= 2)
         {
-            if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
+            if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
             {
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
             }
@@ -144,7 +148,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].isAlive)
+            if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
             {
                 Debug.Log("You won, gz!");
                 ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
@@ -166,6 +170,8 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStateManager.GameState.PlayersTurn)
         {
             opponentsTurnText.SetActive(false);
+            //localPlayer.SendSignal(Signal.StartTurn);
+            audioSource.PlayOneShot(yourTurnDrum);
         }
         else if(gameState == GameStateManager.GameState.OpponentTurn)
         {
@@ -175,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public bool GetIfLocalPlayerTurn()
     {
-        if (_dataManager.GameData.players[_dataManager.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
+        if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
         {
             return true;
         }
@@ -200,10 +206,10 @@ public class GameManager : MonoBehaviour
         return -1;
     }
     
-    private int GetLastTurn(int currentTurn)
+    private int GetLastPlayersTurn(int currentPlayersTurn)
     {
         // TODO Need more work if more than two players
-        if (currentTurn == 0)
+        if (currentPlayersTurn == 0)
         {
             return 1;
         }
@@ -213,10 +219,10 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    private int GetNextTurn(int currentTurn)
+    private int GetNextPlayersTurn(int currentPlayersTurn)
     {
         // TODO Need more work if more than two players
-        if (currentTurn == 0)
+        if (currentPlayersTurn == 0)
         {
             return 1;
         }
@@ -230,7 +236,8 @@ public class GameManager : MonoBehaviour
     {
         _dataManager.GameData.players[_dataManager.GameData.currentTurn].firepower = firepower;
         _dataManager.GameData.players[_dataManager.GameData.currentTurn].angle = angle;
-        _dataManager.GameData.currentTurn = GetNextTurn(_dataManager.GameData.currentTurn);
+        _dataManager.GameData.currentTurn = _dataManager.GameData.currentTurn + 1;
+        _dataManager.GameData.currentPlayerTurn = GetNextPlayersTurn(_dataManager.GameData.currentPlayerTurn);
 
         if (_dataManager.GameData.firstTurn)
         {

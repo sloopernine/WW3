@@ -54,6 +54,13 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
     {
         receivers.Add(receiver);
     }
+
+    public void SetInitialValues(float firepower, float angle)
+    {
+        firePower = firepower;
+        cannon.transform.localEulerAngles = new Vector3(0, 0, angle);
+
+    }
     
     public void RotateCannon(float value)
     {

@@ -4804,6 +4804,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1421407718}
     - target: {fileID: 5601206310009782534, guid: ad06541555fa7c2409d52a6471e12af2, type: 3}
+      propertyPath: yourTurnDrum
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d0b97788b2c9fc489cd12f12b199f25, type: 3}
+    - target: {fileID: 5601206310009782534, guid: ad06541555fa7c2409d52a6471e12af2, type: 3}
       propertyPath: firepowerText
       value: 
       objectReference: {fileID: 932256119}

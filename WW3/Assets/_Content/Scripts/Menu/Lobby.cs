@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using _Content.Scripts;
 using Data.DataContainers;
 using Data;
 using Firebase.Auth;
@@ -25,7 +26,7 @@ namespace Menu
         
         public void CreateGame()
         {
-            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= 5)
+            if (ActiveUser.INSTANCE._userInfo.activeGames.Count >= Settings.MAX_ACTIVE_GAMES)
             {
                 MainMenuManager.INSTANCE.DisplayMessage("You already have to many games active", MainMenuManager.MenuState.lobby);
                 return;
@@ -46,6 +47,7 @@ namespace Menu
             gameData.creatorUserID = ActiveUser.INSTANCE._userInfo.userID;
             gameData.players.Add(newPlayer);
             gameData.currentTurn = 1; // 1 instead of 0 to better fit List.Count
+            gameData.currentPlayerTurn = 1;
             gameData.firstTurn = true;
             
             string path = "games/" + key;

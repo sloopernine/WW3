@@ -11,9 +11,10 @@ namespace Data.DataContainers
         public string creationDate;
         public string gameName;
         public string creatorUserID;
+        public bool isPublic;
         public int worldSeed; //TODO Remove?
         public List<PlayerInfo> players = new List<PlayerInfo>();
-        public int currentPlayer;
+        public int currentPlayerTurn;
         public int currentTurn;
         public bool firstTurn;
     }
