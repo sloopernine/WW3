@@ -5092,7 +5092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSound: {fileID: 8300000, guid: bb00d601cba415044800d6370cd081dc, type: 3}
   setPower: {fileID: 8300000, guid: 97f59ad4b29d3904a9a4e8eb1ab5f88b, type: 3}
-  fireCannon: {fileID: 8300000, guid: 40afa52b8509b7b45af7b7c43914064f, type: 3}
+  fireCannon: {fileID: 11400000, guid: ca3ef400729f67842bd412a3c275560e, type: 2}
 --- !u!114 &7471900329082608061
 MonoBehaviour:
   m_ObjectHideFlags: 0

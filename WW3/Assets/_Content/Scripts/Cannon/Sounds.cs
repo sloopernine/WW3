@@ -1,6 +1,7 @@
 ﻿using System;
 using Data.Interfaces;
 using Data.DataContainers;
+using OmniLib.Audio;
 using UnityEngine;
 
 namespace Cannon
@@ -9,7 +10,8 @@ namespace Cannon
     {
         public AudioClip rotateSound;
         public AudioClip setPower;
-        public AudioClip fireCannon;
+        //public AudioClip fireCannon;
+        [SerializeField] private AudioEvent fireCannon;
         
         private AudioSource _audioSource;
 
@@ -52,7 +54,7 @@ namespace Cannon
                 
                 case Signal.FireCannon:
 
-                    _audioSource.PlayOneShot(fireCannon);
+                    fireCannon.Play(_audioSource);
                     
                     break;
             }
