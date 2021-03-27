@@ -11,7 +11,9 @@ namespace Cannon
         public AudioClip rotateSound;
         public AudioClip setPower;
         //public AudioClip fireCannon;
+        [SerializeField] private AudioEvent rotateCannon;
         [SerializeField] private AudioEvent fireCannon;
+        [SerializeField] private AudioEvent deathExplosion;
         
         private AudioSource _audioSource;
 
@@ -28,8 +30,7 @@ namespace Cannon
             {
                 case Signal.StartRotate:
                     
-                    _audioSource.clip = rotateSound;
-                    _audioSource.Play();
+                    rotateCannon.Play(_audioSource);
                     
                     break;
                 
@@ -55,6 +56,12 @@ namespace Cannon
                 case Signal.FireCannon:
 
                     fireCannon.Play(_audioSource);
+                    
+                    break;
+                
+                case Signal.Die:
+                    
+                    deathExplosion.Play(_audioSource);
                     
                     break;
             }
