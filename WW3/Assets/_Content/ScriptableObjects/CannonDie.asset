@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14bfc515588784e4896ef2b4196b18f4, type: 3}
+  m_Name: CannonDie
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 1d31b3987d2be3849b9ac00a2b2d216f, type: 3}
+  volume:
+    minValue: 0.88381743
+    maxValue: 0.9543568
+  pitch:
+    minValue: 0.89626557
+    maxValue: 1.1286306
+  loopSound: 0
