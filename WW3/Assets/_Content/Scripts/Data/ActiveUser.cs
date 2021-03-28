@@ -99,5 +99,22 @@ namespace Data
 
             return _userInfo;
         }
+
+        public int GetIndexByGameID(string id)
+        {
+            int index = 0;
+            
+            foreach (var activeGame in _userInfo.activeGames)
+            {
+                if (id == activeGame.gameID)
+                {
+                    return index;
+                }
+                
+                index++;
+            }
+
+            return -1;
+        }
     }
 }

@@ -92,6 +92,7 @@ namespace Menu
 
                     ActiveGame newActiveGame = new ActiveGame();
                     newActiveGame.gameID = gameData.gameID;
+                    newActiveGame.firstStart = true;
                     
                     ActiveUser.INSTANCE._userInfo.activeGames.Add(newActiveGame);
                     ActiveUser.INSTANCE.SaveUserInfo();

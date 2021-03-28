@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class GameSlot : MonoBehaviour
 {
     private FirebaseDatabase _database;
+    private ActiveUser _activeUser;
+    private DataManager _dataManager;
     
     public TMP_Text gameName;
     public Button startButton;
@@ -42,6 +44,9 @@ public class GameSlot : MonoBehaviour
     private void Start()
     {
         startButton.interactable = false;
+        
+        _activeUser = ActiveUser.INSTANCE;
+        _dataManager = DataManager.INSTANCE;
     }
 
     public void StartGame()
@@ -52,7 +57,32 @@ public class GameSlot : MonoBehaviour
     public void LoadScene(string jsonData)
     {
         DataManager.INSTANCE.GameData = JsonUtility.FromJson<GameData>(jsonData);
+
+        int index = _activeUser.GetIndexByGameID(_dataManager.GameData.gameID);
+        
+        //TODO Move this into GameLoop scene and set initial firepower and angle based on start location
+        if (_activeUser._userInfo.activeGames[index].firstStart)
+        {
+            PopulatePlayerDataInActiveGame(index);
+        }
+        
         SceneManager.LoadScene("_Content/Scenes/GameScene");
+    }
+
+    private void PopulatePlayerDataInActiveGame(int index)
+    {
+        foreach (var player in _dataManager.GameData.players)
+        {
+            PlayerList newPlayer = new PlayerList();
+            newPlayer.isAlive = true;
+            newPlayer.userID = player.playerID;
+                
+            _activeUser._userInfo.activeGames[index].playerList.Add(newPlayer);
+        }
+
+        _activeUser._userInfo.activeGames[index].firstStart = false;
+            
+        _activeUser.SaveUserInfo();
     }
     
     public void CopyGameName()
