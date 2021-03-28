@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cannon;
+using UnityEditor.Experimental;
 using UnityEngine;
 
 public class CannonBall : MonoBehaviour
@@ -11,6 +12,8 @@ public class CannonBall : MonoBehaviour
     private TrailRenderer _trailRenderer;
 
     public int creatorPlayerIndex;
+    private float counter = 0;
+    private bool counterLock;
     
     private void Start()
     {
@@ -21,7 +24,13 @@ public class CannonBall : MonoBehaviour
 
     private void Update()
     {
-        //TODO Kill cannonball if it takes too long before hitting something, for example falling outside of world
+        counter += Time.deltaTime;
+
+        if (counter > 10 && counterLock == false)
+        {
+            KillShell();
+            counterLock = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -35,6 +44,11 @@ public class CannonBall : MonoBehaviour
             //TODO Play particle and sound for non player explosion here
         }
         
+        KillShell();
+    }
+
+    private void KillShell()
+    {
         _rigidbody2D.bodyType = RigidbodyType2D.Static;
         _spriteRenderer.enabled = false;
 
