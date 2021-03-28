@@ -16,6 +16,7 @@ namespace Data.DataContainers
     {
         public string gameID;
         public int currentTurn;
+        public bool firstStart;
         public List<PlayerList> playerList = new List<PlayerList>();
     }
     
