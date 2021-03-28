@@ -12,7 +12,6 @@ public class InGameUI : MonoBehaviour
     public GameObject winPanel;
     public GameObject gameOverPanel;
     public GameObject cannonControlsPanel;
-    public TMP_Text debugText;
 
     private bool updateText;
 
@@ -46,12 +45,10 @@ public class InGameUI : MonoBehaviour
 
     private void OnGameStateChange(GameStateManager.GameState newGameState)
     {
-        debugText.text = newGameState.ToString();
-        
+
         if (newGameState == GameStateManager.GameState.PlayersTurn)
         {
             Debug.Log("it is players turn");
-            debugText.text = "it is players turn";
 
             updateText = true;
             cannonControlsPanel.SetActive(true);            
@@ -59,7 +56,6 @@ public class InGameUI : MonoBehaviour
         else
         {
             Debug.Log("It is not players turn");
-            debugText.text = "It is not players turn";
 
             updateText = false;
             cannonControlsPanel.SetActive(false);

@@ -31,6 +31,14 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
     private void Start()
     {
         GameStateManager.INSTANCE.onChangeGameState += OnGameStateChanged;
+        
+        int activeGameIndex = ActiveUser.INSTANCE.GetIndexByGameID(DataManager.INSTANCE.GameData.gameID);
+
+        if (ActiveUser.INSTANCE._userInfo.activeGames[activeGameIndex].playerList[playerIndex].isAlive == false)
+        {
+            cannonSprite.enabled = false;
+            cannonBaseSprite.enabled = false;
+        }
     }
 
     private void OnDisable()

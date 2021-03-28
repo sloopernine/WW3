@@ -55,23 +55,15 @@ namespace Data
             }
         }
 
-        public void RemoveActiveGame(string gameName)
+        public void RemoveActiveGame(string gameID)
         {
-            int index = 0;
+            int index = GetIndexByGameID(gameID);
             
-            foreach (var activeGame in _userInfo.activeGames)
-            {
-                if (activeGame.gameID.Contains(gameName))
-                {
-                    _userInfo.activeGames.RemoveAt(index);    
-                }
-
-                index++;
-            }
+            _userInfo.activeGames.RemoveAt(index);
 
             SaveUserInfo();
         }
-        
+
         public UserInfo LoadUserInfo()
         {
             var db = FirebaseDatabase.DefaultInstance;

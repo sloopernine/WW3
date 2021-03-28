@@ -134,16 +134,13 @@ public class GameManager : MonoBehaviour
 
         if (playersAlive >= 2)
         {
-            if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
+            if (_dataManager.GameData.currentPlayerTurn == localPlayer.playerIndex)
             {
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
             }
             else
             {
-                Debug.Log("You are dead, war goes on without you");
-                ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
-                _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
-                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.OpponentTurn);
             }
         }
         else
@@ -163,6 +160,38 @@ public class GameManager : MonoBehaviour
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
             }
         }
+        
+        // if (playersAlive >= 2)
+        // {
+        //     if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
+        //     {
+        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("You are dead, war goes on without you");
+        //         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+        //         _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
+        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
+        //     }
+        // }
+        // else
+        // {
+        //     if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
+        //     {
+        //         Debug.Log("You won, gz!");
+        //         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+        //         _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
+        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.Victory);
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("You are dead, war goes on without you");
+        //         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+        //         _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
+        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
+        //     }
+        // }
     }
     
     void OnGameStateChanged(GameStateManager.GameState gameState)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using Data.DataContainers;
 using Data.Interfaces;
 using Managers;
@@ -31,8 +32,14 @@ namespace Cannon
                 case Signal.Die:
                     
                     Debug.Log("Player " + _cannonController.playerIndex + " died");
-                    
-                    //DataManager.INSTANCE.GameData.players[_cannonController.playerIndex].isAlive = false;
+
+                    int playerIndex = _cannonController.playerIndex;
+                    int activeGameIndex = ActiveUser.INSTANCE.GetIndexByGameID(DataManager.INSTANCE.GameData.gameID);
+
+                    ActiveUser.INSTANCE._userInfo.activeGames[activeGameIndex].playerList[playerIndex].isAlive = false;
+                    ActiveUser.INSTANCE.SaveUserInfo();
+
+                    DataManager.INSTANCE.GameData.players[playerIndex].isAlive = false;
                     
                     cannonSprite.enabled = false;
                     cannonBaseSprite.enabled = false;
