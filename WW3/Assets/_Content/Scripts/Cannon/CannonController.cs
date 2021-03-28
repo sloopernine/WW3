@@ -17,6 +17,7 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
     private SpriteRenderer cannonSprite;
     
     public float firePower = 0;
+    public float angle = 0;
 
     public int playerIndex;
     
@@ -85,6 +86,7 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
     public void SetAngle(float value)
     {
         cannon.transform.eulerAngles = new Vector3(0, 0, value);
+        angle = cannon.transform.eulerAngles.z;
     }
     
     public void StartRotateCannon()
@@ -102,6 +104,10 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
         Vector2 direction = (anchorPoint.transform.position- transform.position).normalized;
         
         GameObject cannonBall = Instantiate(this.cannonBall, anchorPoint.transform.position, Quaternion.identity);
+
+        CannonBall shell = cannonBall.GetComponent<CannonBall>();
+        shell.creatorPlayerIndex = playerIndex;
+        
         Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
         rb.AddForce(direction * firePower, ForceMode2D.Impulse);
         

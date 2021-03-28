@@ -29,7 +29,7 @@ namespace Data.DataContainers
         public float angle;
         public float lastAngle; //TODO Remove?
         public float firepower;
-        
+
         public PlayerInfo()
         {
             

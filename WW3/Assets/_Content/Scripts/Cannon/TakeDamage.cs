@@ -18,14 +18,11 @@ namespace Cannon
         {
             _cannonController.ReceiveSignal(signal);          
         }
-        
-        private void OnCollisionEnter2D(Collision2D other)
+
+        public void Damage()
         {
-            if (other.gameObject.tag == "Shells")
-            {
-                Debug.Log("Player: " + _cannonController.playerIndex + " got hit");
-                SendSignal(Signal.Die);
-            }
+            Debug.Log("Player: " + _cannonController.playerIndex + " got hit");
+            SendSignal(Signal.Die);
         }
     }
 }

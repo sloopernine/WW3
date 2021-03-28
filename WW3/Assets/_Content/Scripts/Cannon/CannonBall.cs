@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cannon;
 using UnityEngine;
 
 public class CannonBall : MonoBehaviour
@@ -9,6 +10,8 @@ public class CannonBall : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private TrailRenderer _trailRenderer;
 
+    public int creatorPlayerIndex;
+    
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -18,8 +21,23 @@ public class CannonBall : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.transform.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<TakeDamage>().Damage();
+        }
+        else
+        {
+            //TODO Play particle and sound for non player explosion here
+        }
+        
         _rigidbody2D.bodyType = RigidbodyType2D.Static;
         _spriteRenderer.enabled = false;
+
+        if (creatorPlayerIndex == GameManager.INSTANCE.localPlayer.playerIndex)
+        {
+            GameManager.INSTANCE.localPlayer.EndTurn();
+        }
+        
         StartCoroutine(WaitToDestroy());
     }
 
