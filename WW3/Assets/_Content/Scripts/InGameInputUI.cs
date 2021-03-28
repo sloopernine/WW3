@@ -122,6 +122,5 @@ public class InGameInputUI : MonoBehaviour
     public void Fire()
     {
         localPlayer.FireCannon();
-        localPlayer.EndTurn();
     }
 }
