@@ -19,6 +19,9 @@ namespace Cannon
         {
             cannonBaseSprite = GetComponent<SpriteRenderer>();
             cannonSprite = cannon.GetComponent<SpriteRenderer>();
+            _cannonController = GetComponent<CannonController>();
+            
+            GetComponent<CannonController>().RegisterReceiver(this);
         }
         
         public void ReceiveSignal(Signal signal)
@@ -29,7 +32,7 @@ namespace Cannon
                     
                     Debug.Log("Player " + _cannonController.playerIndex + " died");
                     
-                    DataManager.INSTANCE.GameData.players[_cannonController.playerIndex].isAlive = false;
+                    //DataManager.INSTANCE.GameData.players[_cannonController.playerIndex].isAlive = false;
                     
                     cannonSprite.enabled = false;
                     cannonBaseSprite.enabled = false;

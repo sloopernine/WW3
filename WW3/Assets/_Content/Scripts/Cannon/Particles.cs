@@ -10,6 +10,13 @@ namespace Cannon
         public ParticleSystem dustCloud;
         public ParticleSystem fireCloud;
         
+        private CannonController _cannonController;
+
+        private void Start()
+        {
+            GetComponent<CannonController>().RegisterReceiver(this);
+        }
+        
         public void ReceiveSignal(Signal signal)
         {
             switch (signal)

@@ -115,17 +115,6 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
     
     private void OnGameStateChanged(GameStateManager.GameState gamestate)
     {
-    //     if (DataManager.INSTANCE.GameData.players[DataManager.INSTANCE.GameData.currentTurn].playerID == ActiveUser.INSTANCE._userInfo.userID)
-    //     {
-    //         if (DataManager.INSTANCE.GameData.currentTurn == playerIndex)
-    //         {
-    //             buttons.SetActive(true);
-    //         }
-    //         
-    //     }
-    //     else
-    //     {
-    //         buttons.SetActive(false);
-    //     }
+
     }
 }

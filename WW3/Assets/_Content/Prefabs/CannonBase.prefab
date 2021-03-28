@@ -4984,7 +4984,9 @@ GameObject:
   - component: {fileID: 2402678676733160397}
   - component: {fileID: 2402678676733160395}
   - component: {fileID: 2552158540732503864}
+  - component: {fileID: 2836511912834455495}
   - component: {fileID: 7471900329082608061}
+  - component: {fileID: 7544836711991630024}
   - component: {fileID: 2402678676733160394}
   - component: {fileID: 8780434211554502625}
   m_Layer: 0
@@ -5092,7 +5094,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSound: {fileID: 8300000, guid: bb00d601cba415044800d6370cd081dc, type: 3}
   setPower: {fileID: 8300000, guid: 97f59ad4b29d3904a9a4e8eb1ab5f88b, type: 3}
+  rotateCannon: {fileID: 11400000, guid: a67aa541384f3704fbd4eaee31f6c940, type: 2}
   fireCannon: {fileID: 11400000, guid: ca3ef400729f67842bd412a3c275560e, type: 2}
+  deathExplosion: {fileID: 11400000, guid: 67f77392e834cfb4080dc3f96d4ffc52, type: 2}
+--- !u!114 &2836511912834455495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402678676733160398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45d88c290c242a7b21ab182096d9690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7471900329082608061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5107,6 +5123,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dustCloud: {fileID: 2314284903067496037}
   fireCloud: {fileID: 4661201610441117103}
+--- !u!114 &7544836711991630024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402678676733160398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07222051c0ec4323ad908f2d0fe34354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannon: {fileID: 2402678677368956840}
 --- !u!82 &2402678676733160394
 AudioSource:
   m_ObjectHideFlags: 0

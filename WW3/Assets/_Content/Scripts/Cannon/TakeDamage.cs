@@ -23,6 +23,7 @@ namespace Cannon
         {
             if (other.gameObject.tag == "Shells")
             {
+                Debug.Log("Player: " + _cannonController.playerIndex + " got hit");
                 SendSignal(Signal.Die);
             }
         }
