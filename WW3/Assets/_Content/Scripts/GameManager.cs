@@ -234,8 +234,8 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn(float firepower, float angle)
     {
-        _dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].firepower = localPlayer.firePower;
-        _dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].angle = localPlayer.angle;
+        _dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].firepower = firepower;
+        _dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].angle = angle;
         _dataManager.GameData.currentTurn += 1;
         _dataManager.GameData.currentPlayerTurn = GetNextPlayersTurn(_dataManager.GameData.currentPlayerTurn);
 

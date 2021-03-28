@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d721d279acbcbb040b8ad96801d13a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creatorPlayerIndex: 0
 --- !u!58 &7552891613903647583
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!96 &6635279011783558692
 TrailRenderer:

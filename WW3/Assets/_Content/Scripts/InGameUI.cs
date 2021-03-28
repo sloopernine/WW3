@@ -86,4 +86,9 @@ public class InGameUI : MonoBehaviour
         firepower.text = "FirePower: " + GameManager.INSTANCE.localPlayer.firePower.ToString("F2");
         angle.text = "Angle: " + GameManager.INSTANCE.localPlayer.cannon.transform.localEulerAngles.z.ToString("F2");
     }
+
+    public void DeactivateButtons()
+    {
+        cannonControlsPanel.SetActive(false);
+    }
 }

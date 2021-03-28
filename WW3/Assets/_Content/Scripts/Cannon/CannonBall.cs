@@ -18,7 +18,12 @@ public class CannonBall : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _trailRenderer = GetComponent<TrailRenderer>();
     }
-    
+
+    private void Update()
+    {
+        //TODO Kill cannonball if it takes too long before hitting something, for example falling outside of world
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.transform.CompareTag("Player"))
