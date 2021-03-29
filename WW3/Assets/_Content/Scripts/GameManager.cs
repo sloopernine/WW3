@@ -160,38 +160,6 @@ public class GameManager : MonoBehaviour
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
             }
         }
-        
-        // if (playersAlive >= 2)
-        // {
-        //     if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
-        //     {
-        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.PlayersTurn);
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("You are dead, war goes on without you");
-        //         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
-        //         _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
-        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
-        //     }
-        // }
-        // else
-        // {
-        //     if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
-        //     {
-        //         Debug.Log("You won, gz!");
-        //         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
-        //         _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
-        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.Victory);
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("You are dead, war goes on without you");
-        //         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
-        //         _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
-        //         GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
-        //     }
-        // }
     }
     
     void OnGameStateChanged(GameStateManager.GameState gameState)
@@ -271,6 +239,27 @@ public class GameManager : MonoBehaviour
         if (_dataManager.GameData.firstTurn)
         {
             _dataManager.GameData.firstTurn = false;
+        }
+
+        int index = ActiveUser.INSTANCE.GetIndexByGameID(_dataManager.GameData.gameID);
+        int playersAlive = 0;
+        
+        foreach (var player in ActiveUser.INSTANCE._userInfo.activeGames[index].playerList)
+        {
+            if (player.isAlive)
+                playersAlive += 1;
+        }
+
+        if(playersAlive == 1)
+        {
+            if (ActiveUser.INSTANCE._userInfo.activeGames[index].playerList[localPlayer.playerIndex].isAlive)
+            {
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.Victory);
+            }
+            else
+            {
+                GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
+            }
         }
 
         string jsonData = JsonUtility.ToJson(_dataManager.GameData);
