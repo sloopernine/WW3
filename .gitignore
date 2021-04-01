@@ -8,5 +8,5 @@ DEV_FILES/*
 WW3/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-7_0_2.so
 WW3/Assets/StreamingAssets/google-services.json
 WW3/Assets/StreamingAssets/google-services.json.meta
-WW3/Assets/StreamingAssets/google-services-desktop
-WW3/Assets/StreamingAssets/google-services-desktop.meta
+WW3/Assets/StreamingAssets/google-services-desktop.json
+WW3/Assets/StreamingAssets/google-services-desktop.json.meta
