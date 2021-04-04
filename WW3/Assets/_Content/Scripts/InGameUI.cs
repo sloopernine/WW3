@@ -77,6 +77,12 @@ public class InGameUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void ConfirmOutcomeAndLeaveGame()
+    {
+        GameManager.INSTANCE.LeaveGameAndEndTurn();
+        BackToMenuScene();
+    }
+
     public void UpdatePowerAngleText()
     {
         firepower.text = "FirePower: " + GameManager.INSTANCE.localPlayer.firePower.ToString("F2");
