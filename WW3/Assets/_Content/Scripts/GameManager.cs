@@ -115,9 +115,14 @@ public class GameManager : MonoBehaviour
         player.SetAngle(_dataManager.GameData.players[index].angle);
         
         yield return new WaitForSeconds(1.5f);
-        player.FireCannon();
+        GameObject cannonball = player.FireCannon();
 
-        yield return new WaitForSeconds(5);
+        while (cannonball != null)
+        {
+            yield return null;
+        }
+        
+        yield return new WaitForSeconds(1);
         
         onReplayFinished();
     }
@@ -164,15 +169,21 @@ public class GameManager : MonoBehaviour
     
     void OnGameStateChanged(GameStateManager.GameState gameState)
     {
-        if (gameState == GameStateManager.GameState.PlayersTurn)
+        switch (gameState)
         {
-            opponentsTurnText.SetActive(false);
-            //localPlayer.SendSignal(Signal.StartTurn);
-            audioSource.PlayOneShot(yourTurnDrum);
-        }
-        else if(gameState == GameStateManager.GameState.OpponentTurn)
-        {
-            opponentsTurnText.SetActive(true);
+            case GameStateManager.GameState.PlayersTurn:
+
+                opponentsTurnText.SetActive(false);
+                //localPlayer.SendSignal(Signal.StartTurn);
+                audioSource.PlayOneShot(yourTurnDrum);
+                
+                break;
+            
+            case GameStateManager.GameState.OpponentTurn:
+                
+                opponentsTurnText.SetActive(true);
+                
+                break;
         }
     }
 
@@ -265,5 +276,12 @@ public class GameManager : MonoBehaviour
         string jsonData = JsonUtility.ToJson(_dataManager.GameData);
         
         FirebaseManager.INSTANCE.SaveData("games/" + _dataManager.GameData.gameID, jsonData);
+    }
+
+    public void LeaveGameAndEndTurn()
+    {
+        _dataManager.GameData.players[localPlayer.playerIndex].leftGame = true;
+        
+        
     }
 }
