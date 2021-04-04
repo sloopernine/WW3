@@ -107,7 +107,7 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
         SendSignal(Signal.StopRotate);
     }
 
-    public void FireCannon()
+    public GameObject FireCannon()
     {
         Vector2 direction = (anchorPoint.transform.position- transform.position).normalized;
         
@@ -120,6 +120,8 @@ public class CannonController : MonoBehaviour, IAcceptSignal, ISendSignal
         rb.AddForce(direction * firePower, ForceMode2D.Impulse);
         
         SendSignal(Signal.FireCannon);
+
+        return cannonBall;
     }
 
     public void EndTurn()
