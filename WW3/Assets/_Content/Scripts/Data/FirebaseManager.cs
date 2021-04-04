@@ -48,6 +48,18 @@ namespace Data
         {
             _firebaseUser.LogoutUser();
         }
+
+        public bool IsUserLoggedIn()
+        {
+            var user = FirebaseAuth.DefaultInstance.CurrentUser;
+
+            if (user != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
         
         public void RegisterUser(string email, string password, string nickname)
         {
