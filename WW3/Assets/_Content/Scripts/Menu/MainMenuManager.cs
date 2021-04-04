@@ -90,6 +90,11 @@ namespace Menu
             {
                 toggleRememberMe.isOn = false;
             }
+
+            // if (FirebaseManager.INSTANCE.IsUserLoggedIn())
+            // {
+            //     ChangeState(MenuState.lobby);
+            // }
         }
         
         public void LoginButton()
