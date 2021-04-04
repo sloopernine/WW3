@@ -27,8 +27,8 @@ namespace Data.DataContainers
         public Vector2 position; //TODO Remove?
         public bool isAlive;
         public float angle;
-        public float lastAngle; //TODO Remove?
         public float firepower;
+        public bool leftGame;
 
         public PlayerInfo()
         {
@@ -42,7 +42,8 @@ namespace Data.DataContainers
             position = Vector2.zero;
             isAlive = true;
             angle = 0;
-            firepower = 0;
+            firepower = 10;
+            leftGame = false;
         }
     }
 }
