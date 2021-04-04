@@ -97,5 +97,14 @@ namespace Data
 
             onLoadedDelegate(jsonData);
         }
+
+        public IEnumerator RemoveGame(string gameID)
+        {
+            var dataTask = _database.RootReference.Child("games/" + gameID).RemoveValueAsync();
+            yield return new WaitUntil(() => dataTask.IsCompleted);
+            
+            if (dataTask.Exception != null)
+                Debug.LogWarning(dataTask.Exception);
+        }
     }
 }

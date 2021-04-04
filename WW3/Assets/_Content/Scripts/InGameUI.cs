@@ -1,4 +1,5 @@
 using System;
+using Data;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -79,8 +80,7 @@ public class InGameUI : MonoBehaviour
 
     public void ConfirmOutcomeAndLeaveGame()
     {
-        GameManager.INSTANCE.LeaveGameAndEndTurn();
-        BackToMenuScene();
+        StartCoroutine(FirebaseManager.INSTANCE.LoadData("games/" + DataManager.INSTANCE.GameData.gameID, GameManager.INSTANCE.LeaveGameAndEndTurn));
     }
 
     public void UpdatePowerAngleText()

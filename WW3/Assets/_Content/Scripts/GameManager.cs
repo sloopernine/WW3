@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Content.Scripts;
 using Data;
 using Data.DataContainers;
 using Firebase.Auth;
@@ -278,10 +279,35 @@ public class GameManager : MonoBehaviour
         FirebaseManager.INSTANCE.SaveData("games/" + _dataManager.GameData.gameID, jsonData);
     }
 
-    public void LeaveGameAndEndTurn()
+    public void LeaveGameAndEndTurn(string data)
     {
-        _dataManager.GameData.players[localPlayer.playerIndex].leftGame = true;
+        ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
         
+        int counter = 0;
         
+        foreach (var player in _dataManager.GameData.players)
+        {
+            if (player.leftGame)
+            {
+                counter++;
+            }
+        }
+
+        if (counter >= Settings.MAX_PLAYERS_GAME - 1)
+        {
+            StartCoroutine(FirebaseManager.INSTANCE.RemoveGame(_dataManager.GameData.gameID));
+        }
+        else
+        {
+            _dataManager.GameData.currentTurn += 1;
+            _dataManager.GameData.currentPlayerTurn = GetNextPlayersTurn(_dataManager.GameData.currentPlayerTurn);
+            _dataManager.GameData.players[localPlayer.playerIndex].leftGame = true;
+            
+            string jsonData = JsonUtility.ToJson(_dataManager.GameData);
+            
+            FirebaseManager.INSTANCE.SaveData("games/" + _dataManager.GameData.gameID, jsonData);
+        }
+        
+        SceneManager.LoadScene("MainMenu");
     }
 }
