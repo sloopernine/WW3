@@ -33,7 +33,7 @@ namespace Menu
             }
             
             string date = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            string gameName = (ActiveUser.INSTANCE._userInfo.userID + date).GetHashCode().ToString("X");
+            string gameName = (ActiveUser.INSTANCE._userInfo.userID + date).GetHashCode().ToString("X").ToLower();
             
             string key = FirebaseDatabase.DefaultInstance.RootReference.Child("games/").Push().Key;
 
