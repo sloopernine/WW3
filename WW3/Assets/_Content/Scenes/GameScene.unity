@@ -1641,7 +1641,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1982299293}
         m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
-        m_MethodName: BackToMenuScene
+        m_MethodName: ConfirmOutcomeAndLeaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3353,7 +3353,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1982299293}
         m_TargetAssemblyTypeName: InGameUI, Assembly-CSharp
-        m_MethodName: BackToMenuScene
+        m_MethodName: ConfirmOutcomeAndLeaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
