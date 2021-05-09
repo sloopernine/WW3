@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Content.Scripts;
 using Data;
+using Data.Containers;
 using Data.DataContainers;
 using Firebase.Auth;
 using Firebase.Database;
@@ -10,6 +11,7 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +19,8 @@ public class GameManager : MonoBehaviour
 
     private DataManager _dataManager;
 
-    public GameObject opponentsTurnText;
+    public GameObject statusTextRoot;
+    public TMP_Text statusText;
 
     public List<CannonController> players;
     public CannonController localPlayer;
@@ -109,6 +112,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowReplay(OnReplayFinished onReplayFinished)
     {
+        statusText.text = "REPLAY";
+        statusText.enabled = true;
+        
         int index = GetLastPlayersTurn(_dataManager.GameData.currentPlayerTurn);
         CannonController player = players[index];
         
@@ -153,15 +159,19 @@ public class GameManager : MonoBehaviour
         {
             if (_dataManager.GameData.players[_dataManager.GameData.currentPlayerTurn].isAlive)
             {
+                statusTextRoot.SetActive(false);
+                statusText.enabled = false;
                 Debug.Log("You won, gz!");
-                ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+                //ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
                 _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.Victory);
             }
             else
             {
+                statusTextRoot.SetActive(false);
+                statusText.enabled = false;
                 Debug.Log("You are dead, war goes on without you");
-                ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
+                //ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
                 _dataManager.RemovePlayerFromGame(_dataManager.GameData.gameID);
                 GameStateManager.INSTANCE.ChangeGameState(GameStateManager.GameState.GameOver);
             }
@@ -174,7 +184,7 @@ public class GameManager : MonoBehaviour
         {
             case GameStateManager.GameState.PlayersTurn:
 
-                opponentsTurnText.SetActive(false);
+                statusText.enabled = false;
                 //localPlayer.SendSignal(Signal.StartTurn);
                 audioSource.PlayOneShot(yourTurnDrum);
                 
@@ -182,7 +192,15 @@ public class GameManager : MonoBehaviour
             
             case GameStateManager.GameState.OpponentTurn:
                 
-                opponentsTurnText.SetActive(true);
+                statusText.text = "OPPONENTS TURN";
+                statusText.enabled = true;
+                
+                break;
+            
+            case GameStateManager.GameState.Victory:
+                
+                statusTextRoot.SetActive(false);
+                statusText.enabled = false;
                 
                 break;
         }
@@ -283,30 +301,30 @@ public class GameManager : MonoBehaviour
     {
         ActiveUser.INSTANCE.RemoveActiveGame(_dataManager.GameData.gameID);
         
-        int counter = 0;
-        
-        foreach (var player in _dataManager.GameData.players)
-        {
-            if (player.leftGame)
-            {
-                counter++;
-            }
-        }
-
-        if (counter >= Settings.MAX_PLAYERS_GAME - 1)
-        {
-            StartCoroutine(FirebaseManager.INSTANCE.RemoveGame(_dataManager.GameData.gameID));
-        }
-        else
-        {
-            _dataManager.GameData.currentTurn += 1;
-            _dataManager.GameData.currentPlayerTurn = GetNextPlayersTurn(_dataManager.GameData.currentPlayerTurn);
-            _dataManager.GameData.players[localPlayer.playerIndex].leftGame = true;
-            
-            string jsonData = JsonUtility.ToJson(_dataManager.GameData);
-            
-            FirebaseManager.INSTANCE.SaveData("games/" + _dataManager.GameData.gameID, jsonData);
-        }
+        // int counter = 0;
+        //
+        // foreach (var player in _dataManager.GameData.players)
+        // {
+        //     if (player.leftGame)
+        //     {
+        //         counter++;
+        //     }
+        // }
+        //
+        // if (counter >= Settings.MAX_PLAYERS_GAME - 1)
+        // {
+        //     StartCoroutine(FirebaseManager.INSTANCE.RemoveGame(_dataManager.GameData.gameID));
+        // }
+        // else
+        // {
+        //     _dataManager.GameData.currentTurn += 1;
+        //     _dataManager.GameData.currentPlayerTurn = GetNextPlayersTurn(_dataManager.GameData.currentPlayerTurn);
+        //     _dataManager.GameData.players[localPlayer.playerIndex].leftGame = true;
+        //     
+        //     string jsonData = JsonUtility.ToJson(_dataManager.GameData);
+        //     
+        //     FirebaseManager.INSTANCE.SaveData("games/" + _dataManager.GameData.gameID, jsonData);
+        // }
         
         SceneManager.LoadScene("MainMenu");
     }

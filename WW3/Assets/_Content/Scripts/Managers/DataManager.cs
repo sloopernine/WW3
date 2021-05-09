@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Data;
+using Data.Containers;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
@@ -14,12 +14,12 @@ namespace Managers
     {
         public static DataManager INSTANCE;
         
-        private Data.DataContainers.GameData _gameData;
+        private GameData _gameData;
         private Data.DataContainers.UserInfo _activeUser;
 
         public delegate void OnDataFetched(string jsonData);
 
-        public Data.DataContainers.GameData GameData
+        public GameData GameData
         {
             get => _gameData;
             set => _gameData = value;
@@ -43,7 +43,7 @@ namespace Managers
         
         void Start()
         {
-            _gameData = new Data.DataContainers.GameData();
+            _gameData = new GameData();
             _activeUser = new Data.DataContainers.UserInfo();
         }
 

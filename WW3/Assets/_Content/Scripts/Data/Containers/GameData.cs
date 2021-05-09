@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Data.DataContainers
+namespace Data.Containers
 {
     [Serializable]
     public class GameData
