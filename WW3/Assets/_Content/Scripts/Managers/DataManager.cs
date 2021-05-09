@@ -14,18 +14,18 @@ namespace Managers
     {
         public static DataManager INSTANCE;
         
-        private Data.DataContainers.GameData _gameData;
-        private Data.DataContainers.UserInfo _activeUser;
+        private Data.Enums.GameData _gameData;
+        private Data.Enums.UserInfo _activeUser;
 
         public delegate void OnDataFetched(string jsonData);
 
-        public Data.DataContainers.GameData GameData
+        public Data.Enums.GameData GameData
         {
             get => _gameData;
             set => _gameData = value;
         }
 
-        public Data.DataContainers.UserInfo ActiveUser
+        public Data.Enums.UserInfo ActiveUser
         {
             get => _activeUser;
             set => _activeUser = value;
@@ -43,8 +43,8 @@ namespace Managers
         
         void Start()
         {
-            _gameData = new Data.DataContainers.GameData();
-            _activeUser = new Data.DataContainers.UserInfo();
+            _gameData = new Data.Enums.GameData();
+            _activeUser = new Data.Enums.UserInfo();
         }
 
         public void SaveGameDataToFirebase()
@@ -86,7 +86,7 @@ namespace Managers
             }
         }
 
-        public Data.DataContainers.UserInfo LoadUserInfo()
+        public Data.Enums.UserInfo LoadUserInfo()
         {
             var db = FirebaseDatabase.DefaultInstance;
             var userId = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
@@ -107,7 +107,7 @@ namespace Managers
 
                     string data = snap.GetRawJsonValue();
 
-                    _activeUser = JsonUtility.FromJson<Data.DataContainers.UserInfo>(data);
+                    _activeUser = JsonUtility.FromJson<Data.Enums.UserInfo>(data);
                 }
             });
 
