@@ -1,8 +1,7 @@
 using System.Collections;
 using _Content.Scripts;
 using Data;
-using Data.Containers;
-using Data.DataContainers;
+using Data.Enums;
 using Firebase.Database;
 using TMPro;
 using UnityEngine;

@@ -1,4 +1,4 @@
-﻿namespace Data.DataContainers
+﻿namespace Data.Enums
 {
     public enum Signal
     {

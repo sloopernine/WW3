@@ -90,7 +90,7 @@ namespace Data
             }
             else
             {
-                DataContainers.UserInfo userInfo = new DataContainers.UserInfo();
+                Enums.UserInfo userInfo = new Enums.UserInfo();
                 userInfo.userID = auth.CurrentUser.UserId;
                 userInfo.nickname = nickname;
                 ActiveUser.INSTANCE._userInfo = userInfo;

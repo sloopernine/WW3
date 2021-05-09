@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Data.DataContainers
+namespace Data.Enums
 {
     [Serializable]
     public class UserInfo
